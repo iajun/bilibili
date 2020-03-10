@@ -1,4 +1,3 @@
-/* eslint-disable */
 const merge = require('webpack-merge');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -24,11 +23,9 @@ const clientConfig = merge(baseWebpackConfig, {
           {
             loader: 'babel-loader',
             options: {
-              babelrc: false,
-              plugins: [
-                '@babel/plugin-syntax-dynamic-import',
-                '@loadable/babel-plugin',
-              ],
+              caller: {
+                target: 'web',
+              },
             },
           },
           'awesome-typescript-loader',
@@ -39,6 +36,7 @@ const clientConfig = merge(baseWebpackConfig, {
       // we can't use style-loader for ssr, cuz this is no document object, thus extract css
       ...getStyleLoaders({
         extract: isProd,
+        postcss: true,
       }),
     ],
   },

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /*
  * @Date: 2020-03-09 14:34:38
  * @Author: Sharp

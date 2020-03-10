@@ -2,10 +2,8 @@
  * @Date: 2020-03-09 14:31:34
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-09 15:09:26
+ * @LastEditTime: 2020-03-10 18:12:32
  */
-
-/* eslint-disable @typescript-eslint/no-var-requires */
 
 const fs = require('fs');
 const Express = require('express');

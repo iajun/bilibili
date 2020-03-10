@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 function generateLoaders(options) {
@@ -7,19 +6,10 @@ function generateLoaders(options) {
     options: {},
   };
 
+  console.log(options);
+
   const postcssLoader = {
     loader: 'postcss-loader',
-    options: {
-      plugins: [
-        require('postcss-cssnext')(),
-        require('cssnano')(),
-        require('postcss-plugin-px2rem')({
-          rootValue: 40,
-          unitPrecision: 2,
-          mediaQuery: false,
-        }),
-      ],
-    },
   };
 
   function generateLoader(loader, loaderOptions) {
@@ -32,7 +22,6 @@ function generateLoaders(options) {
     if (options.modules) {
       cssLoader.options.modules = {
         localIdentName: '[local]-[hash:base64:5]',
-        // sourceMap: options.sourceMap,
       };
     }
 

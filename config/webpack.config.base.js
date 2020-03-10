@@ -1,4 +1,3 @@
-/* eslint-disable */
 const webpack = require('webpack');
 // speed up bundling process using cache
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');

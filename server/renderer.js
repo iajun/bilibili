@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const vm = require('vm');
 const { ChunkExtractor } = require('@loadable/server');
 // const { matchRoutes } = require('react-router-config');
@@ -41,8 +40,6 @@ class ServerRenderer {
     });
 
     const app = extractor.collectChunks(this.createApp(req.url, {}));
-
-    console.log(renderToString(app));
 
     const htmlString = this.template
       .replace(

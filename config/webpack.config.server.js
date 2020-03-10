@@ -1,4 +1,3 @@
-/* eslint-disable */
 const merge = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -26,22 +25,9 @@ module.exports = merge(baseWebpackConfig, {
           {
             loader: 'babel-loader',
             options: {
-              babelrc: false,
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    targets: {
-                      node: 'current',
-                    },
-                    modules: 'commonjs',
-                  },
-                ],
-              ],
-              plugins: [
-                '@babel/plugin-syntax-dynamic-import',
-                '@loadable/babel-plugin',
-              ],
+              caller: {
+                target: 'node',
+              },
             },
           },
           'awesome-typescript-loader',
@@ -51,6 +37,7 @@ module.exports = merge(baseWebpackConfig, {
       },
       ...getStyleLoaders({
         extract: true,
+        postcss: true,
       }),
     ],
   },

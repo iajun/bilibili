@@ -4,8 +4,9 @@ import style from './style.scss?modules';
 
 const Test = () => {
   return (
-    <div className={style.item}>
-      dsfsd
+    <div>
+      <p className={style.item}>dsfsd</p>
+      <a>fdsfsj</a>
       <p>
         <Link to="/">go to index page</Link>
       </p>

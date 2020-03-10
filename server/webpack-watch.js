@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require('webpack');
 const path = require('path');
 const chalk = require('chalk');
@@ -12,6 +11,7 @@ function setHotApp(app, config) {
   config.output.publicPath = '/';
 
   compiler = webpack(config);
+
   const devMiddleware = require('webpack-dev-middleware')(compiler, {
     logLevel: 'warn',
     publicPath: config.output.publicPath,
@@ -19,7 +19,10 @@ function setHotApp(app, config) {
   app.use(devMiddleware);
   app.use(require('webpack-hot-middleware')(compiler));
 
-  return { compiler, devMiddleware };
+  return {
+    compiler,
+    devMiddleware,
+  };
 }
 
 function readFile(fs, config, filename) {
@@ -63,19 +66,24 @@ module.exports = function(app, cb) {
   const serverCompiler = webpack(serverConfig);
   serverCompiler.outputFileSystem = mfs;
 
-  serverCompiler.watch({}, (err, stats) => {
-    const info = stats.toJson();
+  serverCompiler.watch(
+    {},
 
-    if (stats.hasWarnings()) {
-      console.log(chalk.blue(info.warnings));
-    }
-    if (stats.hasErrors()) {
-      console.log(chalk.red(info.errors));
-    }
+    (err, stats) => {
+      const info = stats.toJson();
 
-    serverbundle = readFile(mfs, serverConfig, 'serverbundle.js');
-    update();
-  });
+      if (stats.hasWarnings()) {
+        console.log(chalk.blue(info.warnings));
+      }
+
+      if (stats.hasErrors()) {
+        console.log(chalk.red(info.errors));
+      }
+
+      serverbundle = readFile(mfs, serverConfig, 'serverbundle.js');
+      update();
+    },
+  );
 
   return readyPromise;
 };
