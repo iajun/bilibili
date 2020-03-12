@@ -1,8 +1,7 @@
 {
 
   "extends": ["stylelint-config-standard"],
-  "plugins": ["stylelint-order",
-  "stylelint-scss"],
+  "plugins": ["stylelint-order", "stylelint-scss"],
   "rules": {
     "order/order": [ "custom-properties", "declarations" ],
     "order/properties-alphabetical-order": true,
@@ -14,7 +13,6 @@
         "ignore": ["stylelint-commands", "after-comment"]
       }
     ],
-    "declaration-colon-space-after": "always",
     "max-empty-lines": 2,
     "rule-empty-line-before": [ "always",
       {

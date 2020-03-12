@@ -9,7 +9,7 @@ interface RouteProps extends _RouteProps {
 const routes: Array<RouteProps> = [
   {
     path: '/',
-    component: loadable(() => import('../pages/index')),
+    component: loadable(() => import('../pages/home')),
     exact: true,
   },
   {

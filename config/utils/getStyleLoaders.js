@@ -6,8 +6,6 @@ function generateLoaders(options) {
     options: {},
   };
 
-  console.log(options);
-
   const postcssLoader = {
     loader: 'postcss-loader',
   };

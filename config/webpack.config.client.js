@@ -12,7 +12,8 @@ const clientConfig = merge(baseWebpackConfig, {
     app: ['./src/entry-client.tsx'],
   },
   output: {
-    filename: 'static/js/[name].[hash].js',
+    filename: 'static/js/[name].[hash:8].js',
+    chunkFilename: '[name].[hash:8].js',
   },
   devtool: 'source-map',
   module: {
