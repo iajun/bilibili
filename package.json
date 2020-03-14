@@ -10,8 +10,8 @@
     "build": "rimraf dist & yarn build:client & yarn build:server",
     "build:client": "cross-env NODE_ENV=\"production\" webpack --config ./config/webpack.config.client.js",
     "build:server": "cross-env NODE_ENV=\"production\" webpack --config ./config/webpack.config.server.js",
-    "dev": "nodemon ./server/dev-server.js",
-    "start": "cross-env NODE_ENV='production' node ./server/prod-server.js"
+    "dev": "cross-env NODE_ENV=\"development\" node ./server/app.js",
+    "start": "cross-env NODE_ENV='production' node ./server/app.js"
   },
   "husky": {
     "hooks": {

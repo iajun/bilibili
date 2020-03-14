@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const chalk = require('chalk');
 const MFS = require('memory-fs');
-const clientConfig = require('../config/webpack.config.client');
-const serverConfig = require('../config/webpack.config.server');
+const clientConfig = require('../../config/webpack.config.client');
+const serverConfig = require('../../config/webpack.config.server');
 
 function setHotApp(app, config) {
   config.entry.app.push('webpack-hot-middleware/client');
@@ -66,24 +66,20 @@ module.exports = function(app, cb) {
   const serverCompiler = webpack(serverConfig);
   serverCompiler.outputFileSystem = mfs;
 
-  serverCompiler.watch(
-    {},
+  serverCompiler.watch({}, (err, stats) => {
+    const info = stats.toJson();
 
-    (err, stats) => {
-      const info = stats.toJson();
+    if (stats.hasWarnings()) {
+      console.log(chalk.blue(info.warnings));
+    }
 
-      if (stats.hasWarnings()) {
-        console.log(chalk.blue(info.warnings));
-      }
+    if (stats.hasErrors()) {
+      console.log(chalk.red(info.errors));
+    }
 
-      if (stats.hasErrors()) {
-        console.log(chalk.red(info.errors));
-      }
-
-      serverbundle = readFile(mfs, serverConfig, 'serverbundle.js');
-      update();
-    },
-  );
+    serverbundle = readFile(mfs, serverConfig, 'serverbundle.js');
+    update();
+  });
 
   return readyPromise;
 };

@@ -9,17 +9,13 @@ class ServerRenderer {
     this.clientManifest = clientManifest;
     this.serverbundle = serverbundle;
 
-    this._init();
-  }
-
-  _init() {
-    this._runServerbundle();
+    this.runServerbundle();
   }
 
   /**
    * run bundled entry-server code
    */
-  _runServerbundle() {
+  runServerbundle() {
     const context = vm.createContext({ module, require });
     // this.createApp, this.routes, this.createStore
     Object.assign(this, vm.runInContext(this.serverbundle, context));
