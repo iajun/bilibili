@@ -15,7 +15,6 @@ const clientConfig = merge(baseWebpackConfig, {
   output: {
     filename: 'static/js/[name].[hash:8].js',
   },
-  devtool: isProd ? 'inline-source-map' : 'source-map',
   module: {
     rules: [
       ...generateScriptLoaders({

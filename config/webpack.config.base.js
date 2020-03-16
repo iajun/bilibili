@@ -13,7 +13,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const baseConfig = {
   mode: isProd ? 'production' : 'development',
-  devtool: isProd ? '#inline-source-map' : '#source-map',
+  devtool: isProd ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     plugins: [new TsconfigPathsPlugin()],
