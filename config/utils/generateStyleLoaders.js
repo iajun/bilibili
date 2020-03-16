@@ -46,7 +46,7 @@ function generateLoaders(options) {
   };
 }
 
-function getStyleLoaders(options) {
+function generateStyleLoaders(options) {
   const output = [];
   const styleLoaders = generateLoaders(options);
   const styleModuleLoaders = generateLoaders({
@@ -75,4 +75,4 @@ function getStyleLoaders(options) {
   return output;
 }
 
-module.exports = getStyleLoaders;
+module.exports = generateStyleLoaders;

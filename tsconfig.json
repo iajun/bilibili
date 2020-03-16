@@ -15,6 +15,7 @@
     "paths": {
       "@scss/*": ["assets/scss/*"],
       "@img/*": ["assets/img/*"],
+      "@js/*": ["assets/js/*"],
       "@router/*": ["router/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],

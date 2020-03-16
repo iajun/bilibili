@@ -3,7 +3,8 @@ const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const baseWebpackConfig = require('./webpack.config.base');
-const getStyleLoaders = require('./utils/getStyleLoaders');
+const generateStyleLoaders = require('./utils/generateStyleLoaders');
+const generateScriptLoaders = require('./utils/generateScriptLoaders');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -13,29 +14,14 @@ const clientConfig = merge(baseWebpackConfig, {
   },
   output: {
     filename: 'static/js/[name].[hash:8].js',
-    chunkFilename: '[name].[hash:8].js',
   },
-  devtool: 'source-map',
+  devtool: isProd ? 'inline-source-map' : 'source-map',
   module: {
     rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              caller: {
-                target: 'web',
-              },
-            },
-          },
-          'awesome-typescript-loader',
-          'eslint-loader',
-        ],
-        exclude: /node_modules/,
-      },
-      // we can't use style-loader for ssr, cuz this is no document object, thus extract css
-      ...getStyleLoaders({
+      ...generateScriptLoaders({
+        target: 'web',
+      }),
+      ...generateStyleLoaders({
         extract: isProd,
         postcss: true,
       }),
@@ -49,20 +35,14 @@ const clientConfig = merge(baseWebpackConfig, {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: 1,
-      automaticNameDelimiter: '-',
-      automaticNameMaxLength: 30,
       cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
+        vendor: {
+          test: function(module) {
+            if (module.resource && /\.(scss|css)$/.test(module.resource)) {
+              return false;
+            }
+            return module.context && module.context.includes('node_modules');
+          },
         },
       },
     },

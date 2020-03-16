@@ -2,7 +2,7 @@
  * @Date: 2020-03-14 20:58:23
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-14 21:11:16
+ * @LastEditTime: 2020-03-16 15:42:40
  */
 
 const express = require('express');
@@ -17,7 +17,7 @@ const setupProd = app => {
   const SERVERBUNDLE_PATH = resolve('../../dist/serverbundle.js');
 
   const template = fs.readFileSync(
-    resolve('../../templates/index.html'),
+    resolve('../../public/html/index.html'),
     'utf-8',
   );
   const clientManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
