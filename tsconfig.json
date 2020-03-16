@@ -13,8 +13,9 @@
     "jsx": "react",
     "baseUrl": "src",
     "paths": {
+      "@scss/*": ["assets/scss/*"],
+      "@img/*": ["assets/img/*"],
       "@router/*": ["router/*"],
-      "@config/*": ["config/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@store/*": ["store/*"]

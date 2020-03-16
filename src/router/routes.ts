@@ -9,12 +9,32 @@ interface RouteProps extends _RouteProps {
 const routes: Array<RouteProps> = [
   {
     path: '/',
-    component: loadable(() => import('../pages/home')),
+    component: loadable(() => import('@pages/home')),
     exact: true,
   },
   {
-    path: '/test',
-    component: loadable(() => import('../pages/test')),
+    path: '/channel/:cid',
+    component: loadable(() => import('@pages/channel')),
+  },
+  {
+    path: '/h5',
+    component: loadable(() => import('@pages/h5')),
+  },
+  {
+    path: '/login',
+    component: loadable(() => import('@pages/login')),
+  },
+  {
+    path: '/ranking',
+    component: loadable(() => import('@pages/ranking')),
+  },
+  {
+    path: '/space',
+    component: loadable(() => import('@pages/space')),
+  },
+  {
+    path: '/video',
+    component: loadable(() => import('@pages/video')),
   },
 ];
 
