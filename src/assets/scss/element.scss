@@ -25,7 +25,7 @@
 
 @mixin panel(
   $bg-color: $color-bg-grey,
-  $padding: 0,
+  $padding: 4px 0,
   $size: 24px,
   $color: $color-panel-title
 ) {
@@ -33,7 +33,7 @@
   font-size: $size;
   padding: $padding;
 
-  > hgroup {
+  > header {
     @include flex;
 
     justify-content: space-between;
@@ -46,9 +46,9 @@
       font-weight: initial;
     }
 
-    > h2 {
+    > span {
+      color: $color-grey;
       font-size: $size;
-      font-weight: initial;
     }
   }
 }

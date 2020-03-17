@@ -1,0 +1,19 @@
+@import '~@scss/element.scss';
+@import '~@scss/layout.scss';
+
+.video {
+  width: 290px;
+
+  > img {
+    border: 1px solid #234923;
+    border-radius: 12px;
+    height: 180px;
+    width: 290px;
+  }
+
+  > p {
+    height: 54px;
+    margin: 10px 0 26px;
+    overflow: hidden;
+  }
+}
