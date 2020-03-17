@@ -17,6 +17,7 @@ const clientConfig = merge(baseWebpackConfig, {
       ? 'static/js/[name].[chunkhash].js'
       : 'static/js/[name].[hash].js',
   },
+  devtool: isProd ? 'none' : 'cheap-module-eval-source-map',
   module: {
     rules: [
       ...generateScriptLoaders({
@@ -36,6 +37,9 @@ const clientConfig = merge(baseWebpackConfig, {
   optimization: {
     splitChunks: {
       chunks: 'all',
+    },
+    runtimeChunk: {
+      name: entrypoint => `runtime~${entrypoint.name}`,
     },
   },
 });

@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 // speed up bundling process using cache
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 // inject absolute paths from tsconfig.json
@@ -13,7 +12,6 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const baseConfig = {
   mode: isProd ? 'production' : 'development',
-  devtool: isProd ? 'none' : 'cheap-module-eval-source-map',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     plugins: [new TsconfigPathsPlugin()],
@@ -41,11 +39,7 @@ const baseConfig = {
       },
     ],
   },
-  plugins: [
-    new CheckerPlugin(),
-    new webpack.DefinePlugin({}),
-    new HardSourceWebpackPlugin(),
-  ],
+  plugins: [new CheckerPlugin(), new HardSourceWebpackPlugin()],
 };
 
 module.exports = baseConfig;
