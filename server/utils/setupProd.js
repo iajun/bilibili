@@ -2,7 +2,7 @@
  * @Date: 2020-03-14 20:58:23
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-16 15:42:40
+ * @LastEditTime: 2020-03-16 23:14:02
  */
 
 const express = require('express');
@@ -20,12 +20,13 @@ const setupProd = app => {
     resolve('../../public/html/index.html'),
     'utf-8',
   );
+
   const clientManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
   const serverbundle = fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
 
   const renderer = new ServerRender(template, clientManifest, serverbundle);
 
-  app.use(express.static(resolve('../dist')));
+  app.use(express.static(resolve('../../dist')));
 
   app.get('*', (req, res) => {
     res.send(renderer.render(req, res));

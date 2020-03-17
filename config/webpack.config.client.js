@@ -13,7 +13,9 @@ const clientConfig = merge(baseWebpackConfig, {
     app: ['./src/entry-client.tsx'],
   },
   output: {
-    filename: 'static/js/[name].[hash:8].js',
+    filename: isProd
+      ? 'static/js/[name].[chunkhash].js'
+      : 'static/js/[name].[hash].js',
   },
   module: {
     rules: [
@@ -34,16 +36,6 @@ const clientConfig = merge(baseWebpackConfig, {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: function(module) {
-            if (module.resource && /\.(scss|css)$/.test(module.resource)) {
-              return false;
-            }
-            return module.context && module.context.includes('node_modules');
-          },
-        },
-      },
     },
   },
 });
