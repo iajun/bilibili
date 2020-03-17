@@ -1,0 +1,34 @@
+@import '~@scss/element.scss';
+@import '~@scss/layout.scss';
+
+.panel {
+  @include panel;
+}
+
+.video {
+  @include flex;
+
+  justify-content: space-evenly;
+
+  > section {
+    width: 290px;
+
+    &:nth-child(n + 3) {
+      margin-top: 20px;
+    }
+
+    div {
+      background-color: #234923;
+      border: 1px solid #234923;
+      border-radius: 12px;
+      height: 180px;
+      overflow: hidden;
+    }
+
+    p {
+      height: 54px;
+      margin: 4px 0 0;
+      overflow: hidden;
+    }
+  }
+}

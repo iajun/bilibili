@@ -1,0 +1,7 @@
+@charset 'UTF-8';
+
+@mixin flex($direction: row, $inline: block) {
+  align-items: center;
+  display: if($inline == block, flex, inline-flex);
+  flex-flow: $direction, wrap;
+}

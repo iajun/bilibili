@@ -1,0 +1,60 @@
+@import './color.scss';
+@import './layout.scss';
+
+@mixin btn(
+  $size: 24px,
+  $color: #fff,
+  $bg-color: $color-primary,
+  $padding: 0,
+  $radius: 8px
+) {
+  background: $bg-color;
+  border: 1px solid inherit;
+  border-radius: $radius;
+  color: $color;
+  display: inline-block;
+  font-size: $size;
+  line-height: 1;
+  padding: $padding;
+  text-align: center;
+}
+
+@mixin list($direction: column) {
+  @include flex($direction);
+}
+
+@mixin panel(
+  $bg-color: $color-bg-grey,
+  $padding: 0,
+  $size: 24px,
+  $color: $color-panel-title
+) {
+  background: $bg-color;
+  font-size: $size;
+  padding: $padding;
+
+  > hgroup {
+    @include flex;
+
+    justify-content: space-between;
+    margin: 0 0 8px;
+    padding: 0 20.5px;
+
+    > h1 {
+      color: $color;
+      font-size: 26px;
+      font-weight: initial;
+    }
+
+    > h2 {
+      font-size: $size;
+      font-weight: initial;
+    }
+  }
+}
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

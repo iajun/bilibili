@@ -7,8 +7,7 @@ module.exports = {
     // transformation of px to rem
     require('postcss-plugin-px2rem')({
       rootValue: 40,
-      unitPrecision: 2,
-      mediaQuery: false,
+      propBlackList: ['border', 'border-radius'],
     }),
   ],
 };
