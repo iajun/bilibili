@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const chalk = require('chalk');
 const MFS = require('memory-fs');
+const fs = require('fs');
+const { fork } = require('child_process');
 const clientConfig = require('../../config/webpack.config.client');
 const serverConfig = require('../../config/webpack.config.server');
 
@@ -66,19 +68,37 @@ module.exports = function(app, cb) {
   const serverCompiler = webpack(serverConfig);
   serverCompiler.outputFileSystem = mfs;
 
+  let childProcess;
   serverCompiler.watch({}, (err, stats) => {
     const info = stats.toJson();
 
     if (stats.hasWarnings()) {
-      console.log(chalk.blue(info.warnings));
+      console.warn(chalk.blue(info.warnings));
     }
 
     if (stats.hasErrors()) {
-      console.log(chalk.red(info.errors));
+      console.error(chalk.red(info.errors));
     }
 
-    serverbundle = readFile(mfs, serverConfig, 'serverbundle.js');
-    update();
+    info.assets.forEach(({ name, emitted }) => {
+      if (emitted === false) return;
+
+      const bundle = readFile(mfs, serverConfig, name);
+
+      if (name === 'ssr-server.js') {
+        serverbundle = bundle;
+        update();
+      }
+
+      if (name === 'gql-server.js') {
+        childProcess && childProcess.kill('SIGTERM');
+        fs.writeFileSync(name, bundle);
+        childProcess = fork('gql-server.js');
+        setTimeout(() => {
+          fs.unlinkSync(name);
+        }, 3000);
+      }
+    });
   });
 
   return readyPromise;

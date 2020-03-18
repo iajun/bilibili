@@ -2,7 +2,7 @@
  * @Date: 2020-03-14 20:58:23
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-18 12:12:08
+ * @LastEditTime: 2020-03-19 00:04:28
  */
 
 const express = require('express');
@@ -14,7 +14,7 @@ const resolve = relativePath => path.resolve(__dirname, relativePath);
 
 const setupProd = app => {
   const MANIFEST_PATH = resolve('../../dist/client-manifest.json');
-  const SERVERBUNDLE_PATH = resolve('../../dist/serverbundle.js');
+  const SERVERBUNDLE_PATH = resolve('../../dist/srr-server.js');
 
   const template = fs.readFileSync(
     resolve('../../public/html/index.html'),

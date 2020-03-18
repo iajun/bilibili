@@ -5,6 +5,7 @@ const { minify } = require('html-minifier');
 const { ChunkExtractor } = require('@loadable/server');
 // const { matchRoutes } = require('react-router-config');
 const { renderToString } = require('react-dom/server');
+const CodeManager = require('./codeManager');
 
 const resolveFromSrc = relativePath =>
   path.resolve(__dirname, '../..', relativePath);
@@ -36,9 +37,10 @@ class ServerRenderer {
    * run bundled entry-server code
    */
   runServerbundle() {
-    const context = vm.createContext({ module, require });
     // this.createApp, this.routes, this.createStore
-    Object.assign(this, vm.runInContext(this.serverbundle, context));
+    const codeManager = new CodeManager(this.serverbundle);
+    const ret = codeManager.exec();
+    Object.assign(this, ret);
   }
 
   /**
@@ -56,11 +58,6 @@ class ServerRenderer {
     });
 
     const app = extractor.collectChunks(this.createApp(req.url, {}));
-
-    // const [jsList, cssList] = await Promise.all([
-    //   getEmbedJs(this.embedJsFiles),
-    //   getEmbedCss(this.embedCssFiles),
-    // ]);
 
     const jsList = this.embedJsFiles.map(
       filepath =>

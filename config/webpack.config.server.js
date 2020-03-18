@@ -9,10 +9,11 @@ const generateScriptLoaders = require('./utils/generateScriptLoaders');
 module.exports = merge(baseWebpackConfig, {
   target: 'node',
   entry: {
-    app: ['./src/entry-server.tsx'],
+    'ssr-server': ['./src/entry-server.tsx'],
+    'gql-server': ['./gql-server/index.ts'],
   },
   output: {
-    filename: 'serverbundle.js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2',
   },
   externals: [nodeExternals(), '@loadable/component'],
