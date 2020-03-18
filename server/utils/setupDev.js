@@ -2,7 +2,7 @@
  * @Date: 2020-03-09 14:34:38
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-16 15:42:30
+ * @LastEditTime: 2020-03-18 11:21:49
  */
 
 const fs = require('fs');
@@ -28,7 +28,7 @@ const setupDev = app => {
 
   app.get('*', (req, res) => {
     watcherPromise.then(() => {
-      res.send(renderer.render(req, res));
+      renderer.render(req, res).then(html => res.send(html));
     });
   });
 };

@@ -2,7 +2,7 @@
  * @Date: 2020-03-14 20:58:23
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-16 23:14:02
+ * @LastEditTime: 2020-03-18 12:12:08
  */
 
 const express = require('express');
@@ -29,7 +29,7 @@ const setupProd = app => {
   app.use(express.static(resolve('../../dist')));
 
   app.get('*', (req, res) => {
-    res.send(renderer.render(req, res));
+    renderer.render(req, res).then(html => res.send(html));
   });
 };
 
