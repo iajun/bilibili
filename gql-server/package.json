@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "axios": "^0.19.2",
+    "npm-run-all": "^4.1.5"
+  },
   "dependencies": {
     "apollo-server-express": "^2.11.0",
     "express": "^4.17.1"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "dev": "run-p dev:*",
+    "dev:build": "webpack --config webpack.config.js --watch",
+    "dev:watch": "nodemon dist/gql-server.js"
   }
 }
