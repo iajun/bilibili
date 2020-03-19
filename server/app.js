@@ -2,22 +2,20 @@
  * @Date: 2020-03-14 20:50:20
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-16 15:38:24
+ * @LastEditTime: 2020-03-19 21:59:26
  */
-const path = require('path');
-const setupDev = require('./utils/setupDev');
-const setupProd = require('./utils/setupProd');
+const setupDev = require('./lib/setupDev');
+const setupProd = require('./lib/setupProd');
+const resolveFromRoot = require('./util/resolveFromRoot');
 
 const express = require('express');
 const app = express();
-
-const resolve = relativePath => path.resolve(__dirname, relativePath);
 
 const LISTEN_PORT = 3020;
 
 const isProd = process.env.NODE_ENV === 'production';
 
-app.use(express.static(resolve('../public')));
+app.use(express.static(resolveFromRoot('public')));
 
 isProd ? setupProd(app) : setupDev(app);
 

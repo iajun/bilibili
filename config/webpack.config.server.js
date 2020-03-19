@@ -9,8 +9,7 @@ const generateScriptLoaders = require('./utils/generateScriptLoaders');
 module.exports = merge(baseWebpackConfig, {
   target: 'node',
   entry: {
-    'ssr-server': ['./src/entry-server.tsx'],
-    'gql-server': ['./gql-server/index.ts'],
+    serverbundle: ['./src/entry-server.tsx'],
   },
   output: {
     filename: '[name].js',

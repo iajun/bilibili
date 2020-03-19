@@ -1,34 +1,30 @@
-const vm = require('vm');
 const fs = require('fs');
-const path = require('path');
 const { minify } = require('html-minifier');
 const { ChunkExtractor } = require('@loadable/server');
 // const { matchRoutes } = require('react-router-config');
 const { renderToString } = require('react-dom/server');
-const CodeManager = require('./codeManager');
-
-const resolveFromSrc = relativePath =>
-  path.resolve(__dirname, '../..', relativePath);
+const CodeManager = require('../util/codeManager');
+const resolveFromRoot = require('../util/resolveFromRoot');
 
 class ServerRenderer {
-  minifyOptions = {
-    removeAttributeQuotes: true,
-    removeComments: true,
-    removeOptionalTags: true,
-    collapseInlineTagWhitespace: true,
-    removeTagWhitespace: true,
-    collapseWhitespace: true,
-    minifyJS: true,
-    minifyCSS: true,
-  };
-
   constructor(template, clientManifest, serverbundle) {
     this.template = template;
     this.clientManifest = clientManifest;
     this.serverbundle = serverbundle;
 
-    this.embedJsFiles = [resolveFromSrc('public/js/viewport.js')];
-    this.embedCssFiles = [resolveFromSrc('public/css/normalize.css')];
+    this.embedJsFiles = [resolveFromRoot('public/js/viewport.js')];
+    this.embedCssFiles = [resolveFromRoot('public/css/normalize.css')];
+
+    this.minifyOptions = {
+      removeAttributeQuotes: true,
+      removeComments: true,
+      removeOptionalTags: true,
+      collapseInlineTagWhitespace: true,
+      removeTagWhitespace: true,
+      collapseWhitespace: true,
+      minifyJS: true,
+      minifyCSS: true,
+    };
 
     this.runServerbundle();
   }

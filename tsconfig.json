@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "strict": true,
     "target": "es5",
     "lib": ["es6", "dom"],
@@ -15,7 +14,6 @@
     "paths": {
       "@scss/*": ["assets/scss/*"],
       "@img/*": ["assets/img/*"],
-      "@js/*": ["assets/js/*"],
       "@router/*": ["router/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
