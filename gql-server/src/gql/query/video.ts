@@ -2,17 +2,19 @@
  * @Date: 2020-03-20 09:13:30
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-20 11:19:32
+ * @LastEditTime: 2020-03-20 12:42:21
  */
 
 import {
   getRankingVideos,
   getRankingRegionVideos,
+  getVideoTags,
   VideoProps,
   Video,
+  VideoTag,
 } from '@api/video';
 
-function mapKeys(params: Video[]) {
+function mapVideoKeys(params: Video[]) {
   return params.map(
     ({
       aid: vid,
@@ -22,10 +24,31 @@ function mapKeys(params: Video[]) {
       play,
       title,
       video_review: review,
+      description,
+      create: ctime,
     }) => {
-      return { vid, author, duration, pic, play, title, review };
+      return {
+        vid,
+        author,
+        duration,
+        pic,
+        play,
+        title,
+        review,
+        description,
+        ctime,
+      };
     },
   );
+}
+
+function mapVideoTagKeys(params: VideoTag[]) {
+  return params.map(({ tag_id: tid, tag_name: name, cover, type }) => ({
+    tid,
+    name,
+    cover,
+    type,
+  }));
 }
 
 export async function rankingVideos(context: any, params?: VideoProps) {
@@ -36,10 +59,14 @@ export async function rankingVideos(context: any, params?: VideoProps) {
 
   const videos = await getRankingVideos({ ...defaultParams, ...params });
 
-  return mapKeys(videos);
+  return mapVideoKeys(videos);
 }
 
 export async function rankingRegionVideos(context: any, params: VideoProps) {
   params.day = params.day || 7;
-  return mapKeys(await getRankingRegionVideos(params));
+  return mapVideoKeys(await getRankingRegionVideos(params));
+}
+
+export async function videoTags(context: any, params: { aid: string }) {
+  return mapVideoTagKeys(await getVideoTags(params.aid));
 }
