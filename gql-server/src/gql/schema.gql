@@ -1,0 +1,20 @@
+type Partition {
+  tid: ID!
+  typename: String!
+}
+
+type Video {
+  vid: ID!
+  author: String!
+  duration: String!
+  pic: String!
+  play: Int!
+  title: String!
+  review: Int!
+}
+
+type Query {
+  partitionList(tid: ID): [Partition!]!
+  rankingVideos(rid: Int, day: Int): [Video!]!
+  rankingRegionVideos(rid: Int!, day: Int): [Video!]!
+}

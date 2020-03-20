@@ -1,8 +1,0 @@
-type Partition {
-  tid: ID!
-  typename: String!
-}
-
-type Query {
-  partitionList(tid: ID): [Partition!]!
-}

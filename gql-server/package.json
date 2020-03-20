@@ -5,6 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "axios": "^0.19.2",
+    "minify-graphql-loader": "^0.2.2",
     "npm-run-all": "^4.1.5"
   },
   "dependencies": {
