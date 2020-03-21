@@ -1,5 +1,10 @@
 import React from 'react';
+import Icon from '@components/core/icon';
 
-const Home = () => <div>Home</div>;
+const Home = () => (
+  <div>
+    <Icon name="add-to-list" />
+  </div>
+);
 
 export default Home;

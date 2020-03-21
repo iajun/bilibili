@@ -1,0 +1,12 @@
+@import '~@scss/element.scss';
+
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  cursor: pointer;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 0;
+}
