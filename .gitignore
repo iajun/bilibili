@@ -25,3 +25,5 @@ dist
 
 .cache
 .vscode
+
+/server

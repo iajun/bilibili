@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "strict": true,
+    "target": "es6",
+    "lib": ["es6", "DOM", "DOM.Iterable", "ES2017"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "removeComments": true,
+    "alwaysStrict": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "listFiles": true
+  },
+  "exclude": ["node_modules", "*.js"],
+  "include": ["src/**/*.ts"]
+}

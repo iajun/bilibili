@@ -1,9 +1,9 @@
 {
-  "src/**/*.css": [
+  "*.css": [
     "stylelint --fix",
     "git add"
   ],
-  "src/**/*.{ts, tsx}": [
+  "*.{ts, tsx}": [
     "eslint --fix",
     "git add"
   ]

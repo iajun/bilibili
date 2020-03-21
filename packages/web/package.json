@@ -1,0 +1,31 @@
+{
+  "name": "bilibili",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Sharp",
+  "license": "MIT",
+  "scripts": {
+    "lint:ts": "eslint src --fix --ext .ts,.tsx",
+    "lint:css": "stylelint \"src/**/*.scss\" --fix",
+    "build": "rimraf dist & yarn build:client & yarn build:server",
+    "build:client": "cross-env NODE_ENV=\"production\" webpack --config ./config/webpack.config.client.js",
+    "build:server": "cross-env NODE_ENV=\"production\" webpack --config ./config/webpack.config.server.js",
+    "dev": "cross-env NODE_ENV=\"development\" node ./server/app.js",
+    "start": "cross-env NODE_ENV='production' node ./server/app.js"
+  },
+  "dependencies": {
+    "@loadable/component": "^5.12.0",
+    "@loadable/server": "^5.12.0",
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@loadable/webpack-plugin": "^5.12.0",
+    "@types/classnames": "^2.2.10",
+    "@types/loadable__component": "^5.10.0",
+    "cross-env": "^7.0.2",
+    "mini-css-extract-plugin": "^0.9.0"
+  }
+}

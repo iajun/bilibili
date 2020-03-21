@@ -1,6 +1,10 @@
 /config
-/server
 postcss.config.js
 
-/dist
-/public
+dist
+/packages/ssr-server/public
+/packages/web/config
+
+webpack.config*js
+
+gulp*js
