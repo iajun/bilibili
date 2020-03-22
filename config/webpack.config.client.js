@@ -17,7 +17,9 @@ const clientConfig = merge(baseWebpackConfig, {
       ? 'static/js/[name].[chunkhash].js'
       : 'static/js/[name].[hash].js',
   },
-  devtool: isProd ? 'none' : '#cheap-module-eval-source-map',
+  devtool: isProd
+    ? '#cheap-module-source-map'
+    : '#cheap-module-eval-source-map',
   module: {
     rules: [
       ...generateScriptLoaders({

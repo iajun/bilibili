@@ -21,9 +21,8 @@ const baseConfig = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
+        test: /\.(png|jpe?g|gif)$/,
         loader: 'url-loader',
-        exclude: resolve('../src/assets/icons'),
         options: {
           limit: 2048,
           name: 'static/img/[name].[hash:7].[ext]',

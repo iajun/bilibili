@@ -1,57 +1,68 @@
 'use strict';
 
-const path = require('path');
 const fs = require('fs');
 const ReactDom = require('react-dom/server');
 const requireFromString = require('require-from-string');
-const template_1 = require('./template');
-const data_1 = require('./data');
-const TEMPLATE_PATH = path.resolve(__dirname, '../../public/html');
-const CSS_PATH = path.resolve(__dirname, '../../public/css');
-const JS_PATH = path.resolve(__dirname, '../../public/js');
-const DIST_PATH = path.resolve(__dirname, '../../dist');
-const extraFiles = {
-  'normalize.css': `${CSS_PATH}/normalize.css`,
-  'viewport.js': `${JS_PATH}/viewport.js`,
-};
+const { parseTemplate } = require('./template');
+const { getExtractor, getExtractedData, getExtraData } = require('./data');
+const {
+  TEMPLATE_PATH,
+  SERVERBUNDLE_PATH,
+  MANIFEST_PATH,
+  JS_PATH,
+  CSS_PATH,
+} = require('../util/paths');
+
+/**
+ * normalize options in case of it is lacked or invalid
+ *
+ * @param {options}
+ * @returns: options
+ */
 function normalizeOptions(options) {
-  const CLIENTMANIFEST_PATH = `${DIST_PATH}/client-manifest.json`;
-  const SERVERBUNDLE_PATH = `${DIST_PATH}/serverbundle.js`;
-  if (typeof options === 'undefined') {
-    options = {
-      clientManifest: {},
-      serverbundle: '',
-    };
+  options = options || {};
+  options.template = options.template || `${TEMPLATE_PATH}/index.html`;
+
+  try {
+    options.clientManifest =
+      options.clientManifest ||
+      JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
+
+    options.serverbundle =
+      options.serverbundle || fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
+  } catch (e) {
+    throw new Error(
+      'You should build your project first in production mode, or pass client manifest and server bundle to make it work!',
+    );
   }
-  const template = options.template || `${TEMPLATE_PATH}/index.html`;
-  let clientManifest, serverbundle;
-  if (fs.existsSync(CLIENTMANIFEST_PATH)) {
-    clientManifest = JSON.parse(fs.readFileSync(CLIENTMANIFEST_PATH, 'utf-8'));
-  } else {
-    clientManifest = options.clientManifest;
-  }
-  if (fs.existsSync(SERVERBUNDLE_PATH)) {
-    serverbundle = fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
-  } else {
-    serverbundle = options.serverbundle;
-  }
-  return { clientManifest, serverbundle, template };
+
+  return options;
 }
+
 const render = options => async (req, res) => {
   const { clientManifest, serverbundle, template } = normalizeOptions(options);
+
+  const extraFiles = {
+    'normalize.css': `${CSS_PATH}/normalize.css`,
+    'viewport.js': `${JS_PATH}/viewport.js`,
+  };
+
   const { createApp } = requireFromString(serverbundle);
-  const extractor = data_1.getExtractor(clientManifest, ['app']);
-  const extractedData = data_1.getExtractedData(clientManifest, ['app']);
-  const extraData = await data_1.getExtraData(extraFiles);
+  const extractor = getExtractor(clientManifest, ['app']);
   const app = ReactDom.renderToString(
     extractor.collectChunks(createApp(req.url, {})),
   );
+
+  const extractedData = getExtractedData(extractor);
+  const extraData = await getExtraData(extraFiles);
+
   const parseData = {
     ...extractedData,
     ...extraData,
     app,
   };
-  const html = await template_1.parseTemplate(template, parseData, {
+
+  const html = await parseTemplate(template, parseData, {
     minify: true,
   });
 
