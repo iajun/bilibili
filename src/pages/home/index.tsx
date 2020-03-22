@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@components/core/icon';
+import { Icon } from '@components/index';
 
 const Home = () => (
   <div>

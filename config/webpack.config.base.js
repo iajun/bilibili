@@ -37,7 +37,7 @@ const baseConfig = {
             loader: 'svg-sprite-loader',
             options: {
               extract: true,
-              publicPath: '/static/',
+              publicPath: 'static/img/',
             },
           },
           'svgo-loader',

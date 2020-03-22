@@ -9,7 +9,7 @@ export interface IconProps {
 const Icon: SFC<IconProps> = ({ name }) => {
   return (
     <svg className={classnames(styles.icon, `icon-${name}`)}>
-      <use xlinkHref={`/static/sprite.svg#${name}-usage`} />
+      <use xlinkHref={`static/img/sprite.svg#${name}-usage`} />
     </svg>
   );
 };
