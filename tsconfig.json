@@ -19,5 +19,6 @@
       "@pages/*": ["pages/*"],
       "@store/*": ["store/*"]
     }
-  }
+  },
+  "exclude": ["gql-server"]
 }

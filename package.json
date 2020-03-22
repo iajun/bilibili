@@ -33,7 +33,8 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "require-from-string": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -73,6 +74,7 @@
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",
     "postcss-plugin-px2rem": "^0.8.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "rimraf": "^3.0.2",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
