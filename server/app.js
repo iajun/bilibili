@@ -13,5 +13,5 @@ const app = express();
 setAppEnv(app, process.env.NODE_ENV || 'development');
 
 app.listen(LISTEN_PORT, function() {
-  console.log('dev server is running at port 3020');
+  console.log('server is running at port 3020');
 });

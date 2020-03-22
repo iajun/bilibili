@@ -54,6 +54,7 @@ const render = options => async (req, res) => {
   const html = await template_1.parseTemplate(template, parseData, {
     minify: true,
   });
+
   res.send(html);
 };
 
