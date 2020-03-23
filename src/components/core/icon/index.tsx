@@ -1,5 +1,6 @@
 import React, { SFC } from 'react';
 import classnames from 'classnames';
+import styles from './index.scss?modules';
 
 export interface IconProps {
   name: string;
@@ -7,12 +8,9 @@ export interface IconProps {
 }
 
 const Icon: SFC<IconProps> = ({ name, cname }) => {
-  const context = require.context('../../../assets/icon', true, /\.svg$/);
-  const icon = context(`./${name}.svg`).default;
-
   return (
-    <svg viewBox={icon.viewBox} className={classnames(cname)}>
-      <use xlinkHref={`#${icon.id}`} />
+    <svg className={classnames(styles.icon, cname)}>
+      <use xlinkHref={`static/img/sprite.svg#${name}`} />
     </svg>
   );
 };

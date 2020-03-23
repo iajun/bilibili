@@ -1,6 +1,7 @@
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
+const SpritePlugin = require('svg-sprite-loader/plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const resolve = relativePath =>
@@ -29,7 +30,15 @@ const baseConfig = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-sprite-loader',
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              extract: true,
+              spriteFilename: 'static/img/sprite.svg',
+            },
+          },
+        ],
       },
       {
         test: /\.(woff2?|eot|ttf|otf)$/,
@@ -49,7 +58,16 @@ const baseConfig = {
         level: 'error',
       },
     }),
+    new HardSourceWebpackPlugin.ExcludeModulePlugin([
+      {
+        test: /mini-css-extract-plugin/,
+      },
+      {
+        test: /svg-sprite-loader/,
+      },
+    ]),
     new ProgressBarPlugin(),
+    new SpritePlugin(),
   ],
 };
 
