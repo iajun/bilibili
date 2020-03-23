@@ -12,6 +12,7 @@ const {
   MANIFEST_PATH,
   JS_PATH,
   CSS_PATH,
+  CLIENT_BUILD_PATH,
 } = require('../util/paths');
 
 /**
@@ -31,6 +32,10 @@ function normalizeOptions(options) {
 
     options.serverbundle =
       options.serverbundle || fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
+
+    options.svg =
+      options.svg ||
+      fs.readFileSync(`${CLIENT_BUILD_PATH}/static/img/sprite.svg`);
   } catch (e) {
     throw new Error(
       'You should build your project first in production mode, or pass client manifest and server bundle to make it work!',
@@ -91,6 +96,7 @@ const render = options => async (req, res) => {
     ...extractedData,
     ...extraData,
     app,
+    svg: options.svg,
   };
 
   const html = await parseTemplate(template, parseData, {
