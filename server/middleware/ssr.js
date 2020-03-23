@@ -11,6 +11,7 @@ const ssr = ({ multiCompiler, render }) => (req, res, next) => {
   const clientManifest = JSON.parse(
     readMfsFile(clientCompiler, 'client-manifest.json'),
   );
+
   render({ clientManifest, serverbundle })(req, res, next);
 };
 

@@ -63,9 +63,9 @@ function isValidRenderURL(url) {
  * @param {object} options template, serverbundle, clientmanifest
  * @returns {string} htmlstring
  */
-const render = options => async (req, res, next) => {
+const render = options => async (req, res) => {
   if (!isValidRenderURL(req.url)) {
-    next();
+    return res.status(404).end();
   }
 
   const { clientManifest, serverbundle, template } = normalizeOptions(options);
