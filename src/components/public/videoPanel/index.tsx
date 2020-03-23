@@ -1,10 +1,10 @@
-import React, { SFC } from 'react';
 import {
   Panel,
+  PanelProps,
   VideoItem,
   VideoItemProps,
-  PanelProps,
 } from '@components/index';
+import React, { SFC } from 'react';
 import styles from './index.scss?modules';
 
 export interface VideoPanelProps extends PanelProps {

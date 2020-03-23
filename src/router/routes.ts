@@ -1,6 +1,6 @@
-import loadable from '@loadable/component';
-import { RouteProps as _RouteProps } from 'react-router';
 import { Store } from 'redux';
+import { RouteProps as _RouteProps } from 'react-router';
+import loadable from '@loadable/component';
 
 interface RouteProps extends _RouteProps {
   asyncData?: (store: Store) => void;

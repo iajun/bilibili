@@ -1,9 +1,9 @@
-import React from 'react';
 import { Icon } from '@components/index';
-import styles from './index.scss?modules';
-import address from '@icon/address.svg';
-import { useQuery } from '@apollo/react-hooks';
 import { getPartitionList } from '@query/index';
+import { useQuery } from '@apollo/react-hooks';
+import React from 'react';
+import address from '@icon/address.svg';
+import styles from './index.scss?modules';
 
 const Home = () => {
   const { data = { partitionList: [] } } = useQuery(getPartitionList());

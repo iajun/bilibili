@@ -1,4 +1,4 @@
-import React, { SFC, ReactElement } from 'react';
+import React, { ReactElement, SFC } from 'react';
 import classnames from 'classnames';
 import styles from './index.scss?modules';
 

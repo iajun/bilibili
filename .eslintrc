@@ -1,12 +1,22 @@
 {
-  "env": { "browser": true, "node": true },
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "prettier",
+    "prettier/flowtype",
+    "prettier/react",
+    "prettier/standard",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
   ],
-  "plugins": ["@typescript-eslint", "react-hooks"],
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks",
+    "sort-imports-es6-autofix"
+  ],
   "settings": {
     "react": {
       "pragma": "React",
@@ -21,8 +31,23 @@
     }
   },
   "rules": {
+    "prettier/prettier": "error",
     "react/display-name": 0,
     "react/prop-types": 0,
-    "@typescript-eslint/explicit-function-return-type": 0
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "semi": "error",
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      2,
+      {
+        "ignoreCase": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": [
+          "none",
+          "all",
+          "multiple",
+          "single"
+        ]
+      }
+    ]
   }
 }
