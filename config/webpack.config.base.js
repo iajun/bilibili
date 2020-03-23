@@ -13,7 +13,11 @@ const baseConfig = {
   mode: isProd ? 'production' : 'development',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-    plugins: [new TsconfigPathsPlugin()],
+    plugins: [
+      new TsconfigPathsPlugin({
+        mainFields: ['index'],
+      }),
+    ],
   },
   output: {
     path: resolve('../dist'),

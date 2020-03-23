@@ -1,8 +1,8 @@
 'use strict';
 
 const fs = require('fs');
-const ReactDom = require('react-dom/server');
 const requireFromString = require('require-from-string');
+const { renderToStringWithData } = require('@apollo/react-ssr');
 const { parseTemplate } = require('./template');
 const { getExtractor, getExtractedData } = require('./data');
 const { getFileData } = require('../util/util');
@@ -35,7 +35,7 @@ function normalizeOptions(options) {
 
     options.svg =
       options.svg ||
-      fs.readFileSync(`${CLIENT_BUILD_PATH}/static/img/sprite.svg`);
+      fs.readFileSync(`${CLIENT_BUILD_PATH}/static/img/sprite.svg`, 'utf-8');
   } catch (e) {
     throw new Error(
       'You should build your project first in production mode, or pass client manifest and server bundle to make it work!',
@@ -73,19 +73,24 @@ const render = options => async (req, res) => {
     return res.status(404).end();
   }
 
-  const { clientManifest, serverbundle, template } = normalizeOptions(options);
+  const { clientManifest, serverbundle, template, svg } = normalizeOptions(
+    options,
+  );
   const extraFiles = {
     'normalize.css': `${CSS_PATH}/normalize.css`,
     'viewport.js': `${JS_PATH}/viewport.js`,
   };
 
-  const { createApp } = requireFromString(serverbundle);
+  const { createApp, client } = requireFromString(serverbundle);
+
   const extractor = getExtractor(clientManifest, ['app']);
 
+  let app = extractor.collectChunks(createApp(req.url, {}));
+  // use gql data to render app
+  app = await renderToStringWithData(app);
+
   // rendertostring must be before extracting tags, or cause error
-  const app = ReactDom.renderToString(
-    extractor.collectChunks(createApp(req.url, {})),
-  );
+  // app = ReactDom.renderToString(app);
 
   // extracted data like link tags, script tags, styles etc
   const extractedData = getExtractedData(extractor);
@@ -96,7 +101,8 @@ const render = options => async (req, res) => {
     ...extractedData,
     ...extraData,
     app,
-    svg: options.svg,
+    svg,
+    state: `window.__APOLLO_STATE__ = ${JSON.stringify(client.extract())}`,
   };
 
   const html = await parseTemplate(template, parseData, {
