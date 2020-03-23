@@ -4,7 +4,8 @@ const fs = require('fs');
 const ReactDom = require('react-dom/server');
 const requireFromString = require('require-from-string');
 const { parseTemplate } = require('./template');
-const { getExtractor, getExtractedData, getExtraData } = require('./data');
+const { getExtractor, getExtractedData } = require('./data');
+const { getFileData } = require('../util/util');
 const {
   TEMPLATE_PATH,
   SERVERBUNDLE_PATH,
@@ -39,9 +40,35 @@ function normalizeOptions(options) {
   return options;
 }
 
-const render = options => async (req, res) => {
-  const { clientManifest, serverbundle, template } = normalizeOptions(options);
+/**
+ * check url if render middleware should respond it.
+ *
+ * url with ext likes .svg, .png, .jpg, ..... will not render.
+ *
+ * the rendering url should not contains '.'
+ *
+ * @param {string} url
+ * @returns {boolean} if the url is valid to render
+ */
+function isValidRenderURL(url) {
+  return !~url.indexOf('.');
+}
 
+/**
+ * render middileware
+ *
+ * options contains: template to be rendered, manifest to be read, serverbundle to run
+ * if you don't parse options, it will use default files from client dist path
+ *
+ * @param {object} options template, serverbundle, clientmanifest
+ * @returns {string} htmlstring
+ */
+const render = options => async (req, res, next) => {
+  if (!isValidRenderURL(req.url)) {
+    next();
+  }
+
+  const { clientManifest, serverbundle, template } = normalizeOptions(options);
   const extraFiles = {
     'normalize.css': `${CSS_PATH}/normalize.css`,
     'viewport.js': `${JS_PATH}/viewport.js`,
@@ -49,12 +76,16 @@ const render = options => async (req, res) => {
 
   const { createApp } = requireFromString(serverbundle);
   const extractor = getExtractor(clientManifest, ['app']);
+
+  // rendertostring must be before extracting tags, or cause error
   const app = ReactDom.renderToString(
     extractor.collectChunks(createApp(req.url, {})),
   );
 
+  // extracted data like link tags, script tags, styles etc
   const extractedData = getExtractedData(extractor);
-  const extraData = await getExtraData(extraFiles);
+  // customed file data like other css, js files
+  const extraData = await getFileData(extraFiles);
 
   const parseData = {
     ...extractedData,
