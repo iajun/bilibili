@@ -9,3 +9,4 @@ export { default as Icon, IconProps } from './core/icon';
 
 export { default as VideoItem, VideoItemProps } from './public/videoItem';
 export { default as VideoPanel, VideoPanelProps } from './public/videoPanel';
+export { default as Header } from './public/header';

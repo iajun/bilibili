@@ -1,0 +1,135 @@
+@import '~@scss/element.scss';
+
+.top_wrapper {
+  background-color: #fff;
+  left: 0;
+  padding-bottom: 6px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.header {
+  height: 56px;
+  padding: 16px 0;
+}
+
+.header_logo {
+  display: inline-block;
+  margin-left: 36px;
+  width: 124px;
+}
+
+.header_search {
+  color: $color-icon-grey;
+  float: right;
+  margin-right: 44px;
+}
+
+.header_avatar {
+  border-radius: 50%;
+  float: right;
+  margin-right: 24px;
+  overflow: hidden;
+}
+
+.tab_bar_wrapper {
+  position: relative;
+}
+
+.tab_bar {
+  color: $color-icon-grey;
+  display: flex;
+  height: 80px;
+  margin-right: 112px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.drawer {
+  color: $color-icon-grey;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab_bar::-webkit-scrollbar,
+.drawer::-webkit-scrollbar {
+  display: none;
+}
+
+.partition_items {
+  color: $color-header-font;
+  flex: 0 0 auto;
+  font-size: 28px;
+  padding: 0 32px;
+}
+
+.partition_items > span {
+  display: inline-block;
+  font-size: 28px;
+  line-height: 80px;
+  padding: 0 4px;
+  position: relative;
+}
+
+.partition_items_active {
+  color: $color-primary;
+}
+
+.partition_items_active::after {
+  border-bottom: 4.4px solid $color-primary;
+  bottom: 4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.drawer_position {
+  overflow: hidden;
+  position: absolute;
+  top: 88px;
+  width: 100%;
+  z-index: 2;
+}
+
+.drawer_wrapper {
+  background: #fff;
+  display: none;
+  transform: translate3d(0, -100%, 0);
+  transition: transform 500ms ease;
+}
+
+.drawer > .partition_items {
+  flex: 0 0 auto;
+  padding: 12px 0;
+  text-align: center;
+  width: 121.6px;
+}
+
+.drawer > .partition_items > span {
+  line-height: 60px;
+  padding-bottom: 6.4px;
+}
+
+.tab-bar_switch {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  right: 44px;
+  top: 0;
+}
+
+.drawer_switch {
+  display: block;
+  text-align: center;
+}
+
+.icon_arrow-down,
+.icon_arrow-up {
+  color: $color-icon-grey;
+  height: 48px;
+  width: 36px;
+}

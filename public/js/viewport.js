@@ -90,7 +90,7 @@
 
 		if( !innerWidth ){ return false;}
 
-		document.documentElement.style.fontSize = ( innerWidth*20/320 ) + 'px';
+		document.documentElement.style.fontSize = ( innerWidth*20/375 ) + 'px';
 
         hotcss.callback && hotcss.callback();
 

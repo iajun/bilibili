@@ -2,7 +2,7 @@ import { Icon } from '@components/index';
 import { getPartitionList } from '@query/index';
 import { useQuery } from '@apollo/react-hooks';
 import React from 'react';
-import address from '@icon/address.svg';
+import search from '@icon/search.svg';
 import styles from './index.scss?modules';
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div>
-      <Icon name={address.id} cname={styles['bili-icon']} />
+      <Icon name={search.id} cname={styles['bili-icon']} />
       {data.partitionList.map(({ tid, typename }) => (
         <ul key={tid}>
           <li>{tid}</li>
