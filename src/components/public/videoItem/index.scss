@@ -2,17 +2,16 @@
 @import '~@scss/layout.scss';
 
 .video {
-  width: 290px;
+  width: 320px;
 
   > img {
     border-radius: 12px;
-    height: 180px;
-    width: 290px;
+    width: 320px;
   }
 
   > p {
     height: 54px;
-    margin: 10px 0 26px;
+    margin: 10px 0 30px;
     overflow: hidden;
   }
 }
