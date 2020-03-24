@@ -12,7 +12,6 @@ const {
   MANIFEST_PATH,
   JS_PATH,
   CSS_PATH,
-  CLIENT_BUILD_PATH,
 } = require('../util/paths');
 
 /**
@@ -32,10 +31,6 @@ function normalizeOptions(options) {
 
     options.serverbundle =
       options.serverbundle || fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
-
-    options.svg =
-      options.svg ||
-      fs.readFileSync(`${CLIENT_BUILD_PATH}/static/img/sprite.svg`, 'utf-8');
   } catch (e) {
     throw new Error(
       'You should build your project first in production mode, or pass client manifest and server bundle to make it work!',
@@ -68,14 +63,12 @@ function isValidRenderURL(url) {
  * @param {object} options template, serverbundle, clientmanifest
  * @returns {string} htmlstring
  */
-const render = options => async (req, res) => {
+const render = (options) => async (req, res) => {
   if (!isValidRenderURL(req.url)) {
     return res.status(404).end();
   }
 
-  const { clientManifest, serverbundle, template, svg } = normalizeOptions(
-    options,
-  );
+  const { clientManifest, serverbundle, template } = normalizeOptions(options);
   const extraFiles = {
     'normalize.css': `${CSS_PATH}/normalize.css`,
     'viewport.js': `${JS_PATH}/viewport.js`,
@@ -101,7 +94,6 @@ const render = options => async (req, res) => {
     ...extractedData,
     ...extraData,
     app,
-    svg,
     state: `window.__APOLLO_STATE__ = ${JSON.stringify(client.extract())}`,
   };
 

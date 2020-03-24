@@ -4,7 +4,7 @@ const { CheckerPlugin } = require('awesome-typescript-loader');
 const SpritePlugin = require('svg-sprite-loader/plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-const resolve = relativePath =>
+const resolve = (relativePath) =>
   require('path').resolve(__dirname, relativePath);
 
 const isProd = process.env.NODE_ENV === 'production';

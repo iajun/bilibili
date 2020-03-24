@@ -1,5 +1,5 @@
 {
-  "src/**/*.css": [
+  "src/**/*.{css,scss}": [
     "stylelint --fix",
     "git add"
   ],

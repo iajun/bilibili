@@ -11,9 +11,8 @@ const ssr = ({ multiCompiler, render }) => (req, res, next) => {
   const clientManifest = JSON.parse(
     readMfsFile(clientCompiler, 'client-manifest.json'),
   );
-  const svg = readMfsFile(clientCompiler, 'static/img/sprite.svg');
 
-  render({ clientManifest, serverbundle, svg })(req, res, next);
+  render({ clientManifest, serverbundle })(req, res, next);
 };
 
 module.exports = ssr;

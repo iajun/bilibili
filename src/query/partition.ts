@@ -2,12 +2,13 @@
  * @Date: 2020-03-23 22:20:11
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-23 22:29:47
+ * @LastEditTime: 2020-03-24 01:13:30
  */
+import { QueryPartitionListArgs } from '../../typings/types';
 import { gql } from 'apollo-boost';
 
-export function getPartitionList(id?: string) {
-  if (!id) {
+export function getPartitionList(args?: QueryPartitionListArgs) {
+  if (!args || !args.tid) {
     return gql`
       {
         partitionList {
@@ -19,7 +20,7 @@ export function getPartitionList(id?: string) {
   } else {
     return gql`
       {
-        partitionList(tid: id) {
+        partitionList(tid: arg.tid) {
           tid
           typename
         }

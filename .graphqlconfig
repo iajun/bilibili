@@ -1,0 +1,12 @@
+{
+  "schema": "./gql-server/src/gql/schema.gql",
+  "extensions": {
+    "graphql-codegen": {
+      "generates": "./typings/types.ts",
+      "plugins": ["typescript", "typescript-resolvers"]
+    },
+    "endpoints": {
+      "default": "http://localhost:3021/graphql"
+    }
+  }
+}

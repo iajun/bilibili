@@ -4,7 +4,7 @@ import { hydrate } from 'react-dom';
 import { loadableReady } from '@loadable/component';
 import App from './App';
 import React from 'react';
-import client from '../lib/graphqlWebClient ';
+import client from '../lib/graphqlWebClient';
 
 const Root = () => {
   return (

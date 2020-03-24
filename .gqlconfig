@@ -1,0 +1,17 @@
+{
+  schema: {
+    files: './gql-server/src/gql/schema.gql',
+  },
+  query: {
+    files: [
+      {
+        match: ['**/*.ts'],
+        parser: ['EmbeddedQueryParser', { startTag: 'gql`', endTag: '`' }],
+      },
+      {
+        match: '**/*.gql',
+        parser: 'QueryParser',
+      },
+    ],
+  },
+}
