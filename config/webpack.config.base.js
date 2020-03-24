@@ -40,6 +40,7 @@ const baseConfig = {
             options: {
               extract: true,
               spriteFilename: 'static/img/sprite.svg',
+              publicPath: '/',
             },
           },
         ],
