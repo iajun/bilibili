@@ -2,11 +2,11 @@
  * @Date: 2020-03-20 09:09:05
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-20 12:40:02
+ * @LastEditTime: 2020-03-24 12:19:33
  */
 import { URL_RANKING, URL_RANKING_REGION, URL_VIDEO } from './url';
-import request from '@util/request';
 import extractState from '@util/extractState';
+import request from '@util/request';
 
 export interface VideoProps {
   rid: number;

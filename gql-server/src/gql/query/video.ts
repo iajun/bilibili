@@ -1,20 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*
  * @Date: 2020-03-20 09:13:30
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-20 12:42:21
+ * @LastEditTime: 2020-03-24 12:22:02
  */
 
 import {
-  getRankingVideos,
-  getRankingRegionVideos,
-  getVideoTags,
-  VideoProps,
   Video,
+  VideoProps,
   VideoTag,
+  getRankingRegionVideos,
+  getRankingVideos,
+  getVideoTags,
 } from '@api/video';
 
 function mapVideoKeys(params: Video[]) {
+  console.log(params);
+
   return params.map(
     ({
       aid: vid,
@@ -25,7 +28,6 @@ function mapVideoKeys(params: Video[]) {
       title,
       video_review: review,
       description,
-      create: ctime,
     }) => {
       return {
         vid,
@@ -36,7 +38,6 @@ function mapVideoKeys(params: Video[]) {
         title,
         review,
         description,
-        ctime,
       };
     },
   );

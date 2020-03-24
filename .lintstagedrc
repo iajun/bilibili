@@ -3,6 +3,10 @@
     "stylelint --fix",
     "git add"
   ],
+  "gql-server/**/*.{ts,tsx}": [
+    "eslint --fix",
+    "git add"
+  ],
   "src/**/*.{ts, tsx}": [
     "eslint --fix",
     "git add"

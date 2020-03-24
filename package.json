@@ -5,7 +5,7 @@
   "author": "Sharp",
   "license": "MIT",
   "scripts": {
-    "lint:ts": "eslint src --fix --ext .ts,.tsx",
+    "lint:ts": "eslint {src,gql-server/src} --fix --ext .ts,.tsx",
     "lint:css": "stylelint \"src/**/*.scss\" --fix",
     "build": "rimraf dist & yarn build:client & yarn build:server",
     "build:client": "cross-env NODE_ENV=\"production\" webpack --config ./config/webpack.config.client.js",

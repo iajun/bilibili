@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -66,5 +65,4 @@ export type Video = {
   title: Scalars['String'];
   description: Scalars['String'];
   review: Scalars['Int'];
-  ctime: Scalars['String'];
 };

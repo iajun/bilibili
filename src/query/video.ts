@@ -2,7 +2,7 @@
  * @Date: 2020-03-24 00:44:52
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-24 09:52:27
+ * @LastEditTime: 2020-03-24 12:14:35
  */
 
 import { QueryRankingVideosArgs } from '../../typings/types';
@@ -28,7 +28,6 @@ export function getVideoList(args?: QueryRankingVideosArgs) {
           play
           title
           review
-          ctime
         }
       }
     `;

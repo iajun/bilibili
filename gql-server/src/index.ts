@@ -4,10 +4,10 @@
  * @LastEditors: Sharp
  * @LastEditTime: 2020-03-20 10:26:48
  */
-import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
-import schema from './gql/schema.gql';
 import Query from './gql/query';
+import express from 'express';
+import schema from './gql/schema.gql';
 
 const port = 3021;
 
