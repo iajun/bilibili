@@ -2,34 +2,20 @@
  * @Date: 2020-03-24 00:44:52
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-24 12:14:35
+ * @LastEditTime: 2020-03-24 15:09:21
  */
-
-import { QueryRankingVideosArgs } from '../../typings/types';
 import { gql } from 'apollo-boost';
 
-export function getVideoList(args?: QueryRankingVideosArgs) {
-  if (!args || !args.rid) {
-    return gql`
-      {
-        rankingVideos {
-          vid
-        }
-      }
-    `;
-  } else {
-    return gql`
-      {
-        rankingVideos(rid: 0, day: 3) {
-          vid
-          author
-          duration
-          pic
-          play
-          title
-          review
-        }
-      }
-    `;
+export const VIDEO_LIST = gql`
+  query videoList($rid: ID, $day: Int, $offset: Int, $limit: Int) {
+    rankingVideos(rid: $rid, day: $day, offset: $offset, limit: $limit) {
+      vid
+      author
+      duration
+      pic
+      play
+      title
+      review
+    }
   }
-}
+`;

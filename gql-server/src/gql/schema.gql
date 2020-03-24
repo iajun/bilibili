@@ -1,6 +1,7 @@
 type Partition {
   tid: ID!
   typename: String!
+  subPartition: [Partition!]!
 }
 
 type Video {
@@ -24,7 +25,6 @@ type Tag {
 
 type Query {
   partitionList(tid: ID): [Partition!]!
-  rankingVideos(rid: Int, day: Int): [Video!]!
-  rankingRegionVideos(rid: Int!, day: Int): [Video!]!
+  rankingVideos(rid: ID, day: Int, offset: Int, limit: Int): [Video!]!
   videoTags(aid: ID!): [Tag!]!
 }

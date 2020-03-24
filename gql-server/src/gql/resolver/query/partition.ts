@@ -2,12 +2,12 @@
  * @Date: 2020-03-19 22:54:47
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-24 12:21:44
+ * @LastEditTime: 2020-03-24 13:41:16
  */
 import { getIndexHtml } from '@api/index';
 import extractState from '@util/extractState';
 
-interface PartitionListArgs {
+export interface PartitionListArgs {
   tid?: string;
 }
 

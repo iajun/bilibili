@@ -15,11 +15,11 @@ const VideoPanel: SFC<VideoPanelProps> = ({ videoList, title, subTitle }) => {
   return (
     <Panel title={title} subTitle={subTitle}>
       <div className={styles['video-wrapper']}>
-        {videoList.map(({ src, title }) => (
+        {videoList.map(({ pic, title }) => (
           <VideoItem
-            src={src}
+            key={title}
+            pic={pic}
             title={title}
-            key={src}
             cname={styles['video-item']}
           />
         ))}

@@ -11,28 +11,26 @@ export type Scalars = {
 
 export enum CacheControlScope {
   Public = 'PUBLIC',
-  Private = 'PRIVATE'
+  Private = 'PRIVATE',
 }
 
 export type Partition = {
-   __typename?: 'Partition';
+  __typename?: 'Partition';
   tid: Scalars['ID'];
   typename: Scalars['String'];
   subPartition: Array<Partition>;
 };
 
 export type Query = {
-   __typename?: 'Query';
+  __typename?: 'Query';
   partitionList: Array<Partition>;
   rankingVideos: Array<Video>;
   videoTags: Array<Tag>;
 };
 
-
 export type QueryPartitionListArgs = {
   tid?: Maybe<Scalars['ID']>;
 };
-
 
 export type QueryRankingVideosArgs = {
   rid?: Maybe<Scalars['ID']>;
@@ -41,13 +39,12 @@ export type QueryRankingVideosArgs = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
 export type QueryVideoTagsArgs = {
   aid: Scalars['ID'];
 };
 
 export type Tag = {
-   __typename?: 'Tag';
+  __typename?: 'Tag';
   tid: Scalars['ID'];
   name: Scalars['String'];
   cover?: Maybe<Scalars['String']>;
@@ -55,9 +52,8 @@ export type Tag = {
   type?: Maybe<Scalars['Int']>;
 };
 
-
 export type Video = {
-   __typename?: 'Video';
+  __typename?: 'Video';
   vid: Scalars['ID'];
   author: Scalars['String'];
   duration: Scalars['String'];

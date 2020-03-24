@@ -3,15 +3,15 @@ import classnames from 'classnames';
 import styles from './index.scss?modules';
 
 export interface VideoItemProps {
-  src: string;
+  pic: string;
   title: string;
   cname?: string;
 }
 
-const VideoItem: SFC<VideoItemProps> = ({ src, title, cname }) => {
+const VideoItem: SFC<VideoItemProps> = ({ pic, title, cname }) => {
   return (
     <article className={classnames(styles.video, cname)}>
-      <img src={src} />
+      <img src={pic} />
       <p>{title}</p>
     </article>
   );
