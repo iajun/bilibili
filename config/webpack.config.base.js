@@ -21,6 +21,7 @@ const baseConfig = {
   },
   output: {
     path: resolve('../dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
