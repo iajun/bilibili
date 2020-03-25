@@ -1,14 +1,14 @@
 const merge = require('webpack-merge');
 const LoadablePlugin = require('@loadable/webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackBar = require('webpackBar');
 
 const baseWebpackConfig = require('./webpack.config.base');
-const generateStyleLoaders = require('./utils/generateStyleLoaders');
 const generateScriptLoaders = require('./utils/generateScriptLoaders');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 const clientConfig = merge(baseWebpackConfig, {
+  name: 'client',
   entry: {
     app: ['./src/entry-client.tsx'],
   },
@@ -25,15 +25,15 @@ const clientConfig = merge(baseWebpackConfig, {
       ...generateScriptLoaders({
         target: 'web',
       }),
-      ...generateStyleLoaders({
-        extract: isProd,
-        postcss: true,
-      }),
     ],
   },
   plugins: [
     new LoadablePlugin({
       filename: 'client-manifest.json',
+    }),
+    new WebpackBar({
+      name: 'client',
+      color: '#FDBF0A',
     }),
   ],
   optimization: {
@@ -41,17 +41,9 @@ const clientConfig = merge(baseWebpackConfig, {
       chunks: 'all',
     },
     runtimeChunk: {
-      name: entrypoint => `runtime~${entrypoint.name}`,
+      name: (entrypoint) => `runtime~${entrypoint.name}`,
     },
   },
 });
-
-if (isProd) {
-  clientConfig.plugins.push(
-    new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[contenthash].css',
-    }),
-  );
-}
 
 module.exports = clientConfig;

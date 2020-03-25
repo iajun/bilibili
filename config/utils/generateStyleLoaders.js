@@ -1,5 +1,11 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+function isObject(val) {
+  return (
+    Object.prototype.toString.call(val) === '[object Object]' && val !== null
+  );
+}
+
 function generateLoaders(options) {
   const cssLoader = {
     loader: 'css-loader',
@@ -14,7 +20,12 @@ function generateLoaders(options) {
     const loaders = [];
 
     loaders.push(
-      options.extract ? MiniCssExtractPlugin.loader : 'style-loader',
+      options.extract
+        ? {
+            loader: MiniCssExtractPlugin.loader,
+            options: isObject(options.extract) ? options.extract : {},
+          }
+        : undefined,
     );
 
     if (options.modules) {
@@ -33,7 +44,7 @@ function generateLoaders(options) {
         options: { ...loaderOptions },
       });
 
-    return loaders;
+    return loaders.filter(Boolean);
   }
 
   return {

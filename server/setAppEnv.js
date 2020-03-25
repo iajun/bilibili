@@ -2,7 +2,7 @@
  * @Date: 2020-03-22 15:02:55
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-23 12:48:15
+ * @LastEditTime: 2020-03-25 10:36:05
  */
 
 const webpack = require('webpack');
@@ -27,8 +27,11 @@ module.exports = function setAppEnv(app, env) {
   const multiCompiler = webpack([clientConfig, serverConfig]);
   const [clientCompiler, serverCompiler] = multiCompiler.compilers;
 
-  app.use(webpackDevMiddleware(clientCompiler));
-  app.use(webpackDevMiddleware(serverCompiler));
+  app.use(
+    webpackDevMiddleware(multiCompiler, {
+      logLevel: 'warn',
+    }),
+  );
   app.use(webpackHotMiddleware(clientCompiler));
 
   app.use(

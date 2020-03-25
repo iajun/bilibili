@@ -1,8 +1,9 @@
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const generateStyleLoaders = require('./utils/generateStyleLoaders');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const SpritePlugin = require('svg-sprite-loader/plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const resolve = (relativePath) =>
   require('path').resolve(__dirname, relativePath);
@@ -25,6 +26,14 @@ const baseConfig = {
   },
   module: {
     rules: [
+      ...generateStyleLoaders({
+        extract: isProd
+          ? false
+          : {
+              hmr: true,
+            },
+        postcss: true,
+      }),
       {
         test: /\.(png|jpe?g|gif)$/,
         loader: 'url-loader',
@@ -72,7 +81,11 @@ const baseConfig = {
         test: /svg-sprite-loader/,
       },
     ]),
-    new ProgressBarPlugin(),
+    new MiniCssExtractPlugin({
+      filename: isProd
+        ? 'static/css/[name].[contenthash].css'
+        : 'static/css/[name].css',
+    }),
     new SpritePlugin(),
   ],
 };
