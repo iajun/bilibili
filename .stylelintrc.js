@@ -19,7 +19,7 @@ module.exports = {
     ],
     'max-nesting-depth': 2,
     'max-empty-lines': 2,
-    'number-leading-zero': 'never',
+    'number-leading-zero': 'always',
     'number-no-trailing-zeros': true,
     'rule-empty-line-before': [
       'always',

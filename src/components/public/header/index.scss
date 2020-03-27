@@ -1,4 +1,8 @@
 @import '~@scss/element.scss';
+@import '~@scss/color.scss';
+
+$color-nav-list: #757575;
+$color-nav-item-active: #fb7299;
 
 .top_wrapper {
   background-color: #fff;
@@ -10,28 +14,58 @@
   z-index: 10;
 }
 
+.header_position_patch {
+  display: block;
+  margin-top: 186px;
+}
+
 .header {
+  @include flex;
+
+  flex-wrap: nowrap;
   height: 56px;
   padding: 16px 0;
 }
 
 .header_logo {
-  display: inline-block;
   margin-left: 36px;
-  width: 124px;
 }
 
 .header_search {
-  color: $color-icon-grey;
-  float: right;
-  margin-right: 44px;
+  background: $color-bg-grey;
+  border-radius: 24px;
+  color: $color-grey;
+  display: block;
+  flex-grow: 1;
+  font-size: 24px;
+  height: 48px;
+  line-height: 48px;
+  margin: 0 20px 0 30px;
+  padding: 0 22px;
+
+  @include text-ellipsis;
+}
+
+.header_search_icon {
+  fill: #aaa;
+  height: 25;
+  margin: -2px 6px 0 0;
+  vertical-align: center;
+  width: 25px;
 }
 
 .header_avatar {
   border-radius: 50%;
-  float: right;
+  height: 48px;
+  margin: 0 24px 0 0;
+  min-width: 48px;
+}
+
+.header_btn {
+  @include btn;
+
   margin-right: 24px;
-  overflow: hidden;
+  min-width: 164px;
 }
 
 .tab_bar_wrapper {

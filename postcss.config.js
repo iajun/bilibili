@@ -9,5 +9,6 @@ module.exports = {
       rootValue: 40,
       propBlackList: ['border', 'border-radius'],
     }),
+    require('postcss-svgo'),
   ],
 };

@@ -15,6 +15,7 @@
       "@scss/*": ["assets/scss/*"],
       "@img/*": ["assets/img/*"],
       "@icon/*": ["assets/icon/*"],
+      "@typings/*": ["../typings/*"],
       "@lib/*": ["../lib/*"],
       "@query/*": ["query/*"],
       "@router/*": ["router/*"],

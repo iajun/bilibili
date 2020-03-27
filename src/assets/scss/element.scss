@@ -2,14 +2,14 @@
 @import './layout.scss';
 
 @mixin btn(
-  $size: 24px,
+  $size: 26px,
   $color: #fff,
   $bg-color: $color-primary,
-  $padding: 0,
+  $padding: 10px 26px,
   $radius: 8px
 ) {
   background: $bg-color;
-  border: 1px solid inherit;
+  border: 1px solid $bg-color;
   border-radius: $radius;
   color: $color;
   display: inline-block;

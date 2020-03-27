@@ -3,6 +3,9 @@ import { NestedRoute, routes } from '@router/index';
 import { Switch } from 'react-router-dom';
 import React, { Fragment, SFC } from 'react';
 
+const files = require.context('./assets/icon', false, /\.svg$/);
+files.keys().forEach(files);
+
 const App: SFC<{}> = () => {
   return (
     <Fragment>

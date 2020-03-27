@@ -3,6 +3,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const generateStyleLoaders = require('./utils/generateStyleLoaders');
 const { CheckerPlugin } = require('awesome-typescript-loader');
+const path = require('path');
 const SpritePlugin = require('svg-sprite-loader/plugin');
 
 const resolve = (relativePath) =>
@@ -28,31 +29,38 @@ const baseConfig = {
     rules: [
       ...generateStyleLoaders({
         extract: isProd
-          ? false
+          ? {}
           : {
               hmr: true,
             },
         postcss: true,
       }),
       {
-        test: /\.(png|jpe?g|gif)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 2048,
-          name: 'static/img/[name].[hash:7].[ext]',
-        },
+        test: /\.(png|jpe?g|gif|svg)$/,
+        exclude: resolve('../src/assets/icon'),
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 2048,
+              name: 'static/img/[name].[hash:7].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
+        include: resolve('../src/assets/icon'),
         use: [
           {
             loader: 'svg-sprite-loader',
             options: {
-              extract: true,
-              spriteFilename: 'static/img/sprite.svg',
-              publicPath: '/',
+              symbolId: (filePath) =>
+                path.basename(filePath).replace('.svg', ''),
             },
           },
+          'svg-transform-loader',
+          'svgo-loader',
         ],
       },
       {
