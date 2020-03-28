@@ -1,6 +1,6 @@
 const merge = require('webpack-merge');
 const LoadablePlugin = require('@loadable/webpack-plugin');
-const WebpackBar = require('webpackBar');
+const WebpackBar = require('webpackbar');
 
 const baseWebpackConfig = require('./webpack.config.base');
 const generateScriptLoaders = require('./utils/generateScriptLoaders');
