@@ -1,7 +1,11 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import reducers from './reducers/';
 import thunkMiddleware from 'redux-thunk';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default (initialStore: { firstReducer?: { name?: string } }) =>
-  createStore(reducers, initialStore, applyMiddleware(thunkMiddleware));
+export default (initialStore: any) =>
+  createStore(
+    reducers,
+    initialStore,
+    compose(applyMiddleware(thunkMiddleware)),
+  );

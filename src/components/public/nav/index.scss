@@ -1,0 +1,96 @@
+@import '~@scss/element.scss';
+@import '~@scss/color.scss';
+@import '~@scss/animate.scss';
+
+@mixin icon-arrow {
+  color: $color-icon-grey;
+  width: 26px;
+}
+
+.nav-wrapper {
+  position: relative;
+}
+
+.tab_bar {
+  @include flex($wrap: nowrap);
+
+  color: $color-icon-grey;
+  height: 80px;
+  overflow: scroll hidden;
+  padding: 0 10px;
+  position: relative;
+  text-align: center;
+  width: 86%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.partition_items {
+  color: $color-header-font;
+  flex: 0 0 20%;
+  font-size: 28px;
+  line-height: 80px;
+
+  > a {
+    position: relative;
+  }
+}
+
+.partition_items_active {
+  color: $color-primary;
+}
+
+.partition_items_active::after {
+  background: $color-primary;
+  bottom: -10px;
+  content: '';
+  height: 4px;
+  left: -10%;
+  position: absolute;
+  width: 120%;
+}
+
+.drawer {
+  background: #fff;
+  position: absolute;
+  top: 88px;
+  width: 100%;
+  z-index: 2;
+
+  > .tab_bar {
+    flex-wrap: wrap;
+    height: initial;
+    overflow: initial;
+    width: initial;
+  }
+
+  .partition_items {
+    flex: 0 0 16.6%;
+  }
+}
+
+.drawer-visible {
+  animation: slideInDown 0.3s ease;
+}
+
+.drawer-invisible {
+  animation: slideOutUp 0.3s ease;
+  visibility: hidden;
+}
+
+.icon_arrow-down {
+  @include icon-arrow;
+
+  position: absolute;
+  right: 40px;
+  top: 12px;
+}
+
+.icon_arrow-up {
+  @include icon-arrow;
+
+  display: block;
+  margin: 10px auto;
+}

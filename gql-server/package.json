@@ -4,12 +4,23 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.13.1",
+    "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.19.2",
+    "graphql": "^14.6.0",
     "minify-graphql-loader": "^0.2.2",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.8.3",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2",
+    "@graphql-codegen/typescript": "1.13.1",
+    "@graphql-codegen/typescript-operations": "1.13.1",
+    "@graphql-codegen/typescript-resolvers": "1.13.1",
+    "@graphql-codegen/typescript-react-apollo": "1.13.1",
+    "@graphql-codegen/introspection": "1.13.1"
   },
   "dependencies": {
     "add": "^2.0.6",
@@ -19,9 +30,11 @@
     "yarn": "^1.22.4"
   },
   "scripts": {
+    "gql:gen": "graphql-codegen",
     "build": "webpack --config webpack.config.js",
     "dev": "run-p dev:*",
     "dev:build": "webpack --config webpack.config.js --watch",
-    "dev:watch": "nodemon dist/gql-server.js"
+    "dev:watch": "nodemon dist/gql-server.js",
+    "gen": "graphql-codegen --config codegen.yml"
   }
 }

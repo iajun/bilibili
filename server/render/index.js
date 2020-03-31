@@ -74,11 +74,12 @@ const render = (options) => async (req, res) => {
     'viewport.js': `${JS_PATH}/viewport.js`,
   };
 
-  const { createApp, client } = requireFromString(serverbundle);
+  const { createApp, client, createStore } = requireFromString(serverbundle);
+  let store = createStore();
 
   const extractor = getExtractor(clientManifest, ['app']);
 
-  let app = extractor.collectChunks(createApp(req.url, {}));
+  let app = extractor.collectChunks(createApp(req.url, {}, store));
   // use gql data to render app
   app = await renderToStringWithData(app);
 
@@ -90,15 +91,17 @@ const render = (options) => async (req, res) => {
   // customed file data like other css, js files
   const extraData = await getFileData(extraFiles);
 
+  store = JSON.stringify(client.extract());
+
   const parseData = {
     ...extractedData,
     ...extraData,
     app,
-    state: `window.__APOLLO_STATE__ = ${JSON.stringify(client.extract())}`,
+    state: `window.__APOLLO_STATE__ = ${JSON.stringify(store)}`,
   };
 
   const html = await parseTemplate(template, parseData, {
-    minify: true,
+    minify: false,
   });
 
   res.send(html);

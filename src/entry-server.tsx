@@ -3,7 +3,8 @@ import { StaticRouter as Router } from 'react-router-dom';
 import { routes } from '@router/index';
 import React from 'react';
 import Root from './App';
-import client from '../lib/graphqlClient';
+import client from '@util/graphqlClient';
+import createStore from '@store/index';
 
 const createApp = (location: string, context: object = {}) => {
   const App = () => (
@@ -16,4 +17,4 @@ const createApp = (location: string, context: object = {}) => {
   return <App />;
 };
 
-export { createApp, routes, client };
+export { createApp, routes, client, createStore };

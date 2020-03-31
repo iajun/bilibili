@@ -1,16 +1,11 @@
+import { Partition } from '@typings/graphql';
 import { Reducer } from 'redux';
 
-interface FirstStore {
-  name?: string;
-}
-
-const firstReducer: Reducer<FirstStore> = (initialState = {}, action) => {
+const partitionReducer: Reducer<Partition[]> = (initialState = [], action) => {
   switch (action.type) {
-    case 'getName':
-      return { name: 'sharp' };
     default:
       return initialState;
   }
 };
 
-export default firstReducer;
+export default partitionReducer;

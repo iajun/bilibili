@@ -1,3 +1,9 @@
+/*
+ * @Date: 2020-03-30 00:42:49
+ * @Author: Sharp
+ * @LastEditors: Sharp
+ * @LastEditTime: 2020-03-30 15:22:34
+ */
 import { Store } from 'redux';
 import { RouteProps as _RouteProps } from 'react-router';
 import loadable from '@loadable/component';
@@ -33,7 +39,7 @@ const routes: Array<RouteProps> = [
     component: loadable(() => import('@pages/space')),
   },
   {
-    path: '/video',
+    path: '/video/:vid',
     component: loadable(() => import('@pages/video')),
   },
 ];

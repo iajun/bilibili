@@ -16,7 +16,7 @@
       "@img/*": ["assets/img/*"],
       "@icon/*": ["assets/icon/*"],
       "@typings/*": ["../typings/*"],
-      "@lib/*": ["../lib/*"],
+      "@util/*": ["util/*"],
       "@query/*": ["query/*"],
       "@router/*": ["router/*"],
       "@components/*": ["components/*"],

@@ -3,7 +3,7 @@
  * @Date: 2020-03-20 09:13:30
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-24 16:11:37
+ * @LastEditTime: 2020-03-30 16:28:09
  */
 
 import {
@@ -33,6 +33,7 @@ function mapVideoKeys(params: Video[]) {
       video_review: review,
       description,
     }) => {
+      pic = pic.replace('http', 'https');
       return {
         vid,
         author,

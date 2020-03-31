@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import firstReducer from './firstReducer';
+import partitionReducer from './firstReducer';
 
 const combinedStore = combineReducers({
-  firstReducer,
+  partitionReducer,
 });
 
 export default combinedStore;

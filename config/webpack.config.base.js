@@ -1,3 +1,9 @@
+/*
+ * @Date: 2020-03-30 00:42:49
+ * @Author: Sharp
+ * @LastEditors: Sharp
+ * @LastEditTime: 2020-03-30 16:06:09
+ */
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -31,8 +37,8 @@ const baseConfig = {
         extract: isProd
           ? {}
           : {
-              hmr: true,
-            },
+            hmr: true,
+          },
         postcss: true,
       }),
       {
@@ -46,21 +52,6 @@ const baseConfig = {
               name: 'static/img/[name].[hash:7].[ext]',
             },
           },
-        ],
-      },
-      {
-        test: /\.svg$/,
-        include: resolve('../src/assets/icon'),
-        use: [
-          {
-            loader: 'svg-sprite-loader',
-            options: {
-              symbolId: (filePath) =>
-                path.basename(filePath).replace('.svg', ''),
-            },
-          },
-          'svg-transform-loader',
-          'svgo-loader',
         ],
       },
       {
@@ -94,7 +85,6 @@ const baseConfig = {
         ? 'static/css/[name].[contenthash].css'
         : 'static/css/[name].css',
     }),
-    new SpritePlugin(),
   ],
 };
 

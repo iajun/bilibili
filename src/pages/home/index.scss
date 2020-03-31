@@ -1,6 +1,5 @@
-.bili-icon {
-  fill: rgb(199, 103, 86);
-  height: 50px;
-  margin: 80px;
-  width: 50px;
+.wrapper {
+  height: calc(100vh - 168px);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
