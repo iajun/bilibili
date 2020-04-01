@@ -79,7 +79,7 @@ const render = (options) => async (req, res) => {
 
   const extractor = getExtractor(clientManifest, ['app']);
 
-  let app = extractor.collectChunks(createApp(req.url, {}, store));
+  let app = extractor.collectChunks(createApp(req.url, { req }, store));
   // use gql data to render app
   app = await renderToStringWithData(app);
 

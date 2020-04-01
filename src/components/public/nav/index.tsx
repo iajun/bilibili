@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { NavPartitionData, transformPartitionData } from './data';
 import { PARTITION_LIST } from '@query/partition';
 import { useQuery } from '@apollo/react-hooks';
@@ -7,7 +7,7 @@ import React, { SFC, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import styles from './index.scss?modules';
 
-const BlNav: SFC<{}> = () => {
+const BlNav: SFC<{}> = (props) => {
   const { data, loading } = useQuery(PARTITION_LIST);
   const [isDrawerShow, setIsDrawerShow] = useState(false);
   const [curHref, setCurHref] = useState('/');
@@ -29,7 +29,7 @@ const BlNav: SFC<{}> = () => {
 
   // where refresh or enter the page, determine where the active nav is
   useEffect(() => {
-    const href = location.pathname;
+    const href = props.location.pathname;
     setCurHref(href);
     scrollNavTabBar(href);
   }, [partitionList]);
@@ -116,4 +116,4 @@ const BlNav: SFC<{}> = () => {
   );
 };
 
-export default BlNav;
+export default withRouter(BlNav);

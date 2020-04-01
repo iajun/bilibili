@@ -58,3 +58,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin tag($color: #fb7299, $bg-color: #f4f4f4) {
+  background-color: $bg-color;
+  color: $color;
+  display: inline-block;
+  font-size: 48px;
+}
