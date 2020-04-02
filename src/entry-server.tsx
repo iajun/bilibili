@@ -1,20 +1,19 @@
-import { ApolloProvider } from '@apollo/react-common';
+import { Provider } from 'react-redux';
 import { StaticRouter as Router } from 'react-router-dom';
 import { routes } from '@router/index';
 import React from 'react';
 import Root from './App';
-import client from '@util/graphqlClient';
 import createStore from '@store/index';
 
-const createApp = (location: string, context: object = {}) => {
+const createApp = (location: string, context: object = {}, store: any) => {
   const App = () => (
-    <ApolloProvider client={client}>
+    <Provider store={store}>
       <Router context={context} location={location}>
         <Root />
       </Router>
-    </ApolloProvider>
+    </Provider>
   );
   return <App />;
 };
 
-export { createApp, routes, client, createStore };
+export { createApp, routes, createStore };

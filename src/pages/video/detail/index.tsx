@@ -7,13 +7,9 @@ interface LocationState {
   videoItem: VideoItemProps;
 }
 
-export interface VideoDetailProps
-  extends RouteComponentProps<{}, {}, LocationState> {
-  name: string;
-}
+export type VideoDetailProps = RouteComponentProps<{}, {}, LocationState>;
 
 const VideoDetail: React.SFC<VideoDetailProps> = (props) => {
-  console.log(props);
   const { title } = props.location.state.videoItem;
 
   // console.log(props.location.state.videoItem);

@@ -1,19 +1,24 @@
-import { Link, withRouter } from 'react-router-dom';
-import { NavPartitionData, transformPartitionData } from './data';
-import { PARTITION_LIST } from '@query/partition';
-import { useQuery } from '@apollo/react-hooks';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Partition } from '@store/actions';
+import { transformPartitionData } from './data';
+import { useSelector } from 'react-redux';
 import Icon from '@components/core/icon';
 import React, { SFC, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import styles from './index.scss?modules';
 
-const BlNav: SFC<{}> = (props) => {
-  const { data, loading } = useQuery(PARTITION_LIST);
+type BlNavProps = RouteComponentProps;
+
+const BlNav: SFC<BlNavProps> = (props) => {
   const [isDrawerShow, setIsDrawerShow] = useState(false);
   const [curHref, setCurHref] = useState('/');
   const tabBarRef = useRef<HTMLDivElement>(null);
 
-  let partitionList: NavPartitionData[] = [];
+  const partitionListState = useSelector<any>(
+    (state) => state.partitionList,
+  ) as Partition[];
+
+  const partitionList = transformPartitionData(partitionListState);
 
   // scroll nav tab bar to where the nav item is
   function scrollNavTabBar(href: string) {
@@ -24,7 +29,13 @@ const BlNav: SFC<{}> = (props) => {
     const scrollLeft =
       pageIndex > 3 ? ((pageIndex - 1) * window.innerWidth * 0.86) / 5 : 0;
 
-    (tabBarRef.current as HTMLDivElement).scrollLeft = scrollLeft;
+    const curScrollLeft = tabBarRef.current!.scrollLeft;
+    const innerWidth = window.innerWidth;
+    if (Math.abs(curScrollLeft - scrollLeft) > innerWidth) {
+      console.log({ curScrollLeft, innerWidth, scrollLeft });
+
+      (tabBarRef.current as HTMLDivElement).scrollLeft = scrollLeft;
+    }
   }
 
   // where refresh or enter the page, determine where the active nav is
@@ -40,10 +51,6 @@ const BlNav: SFC<{}> = (props) => {
     [styles['drawer-visible']]: isDrawerShow,
     [styles['drawer-invisible']]: !isDrawerShow,
   });
-
-  if (!loading) {
-    partitionList = transformPartitionData(data.partitionList);
-  }
 
   function showDrawer() {
     setIsDrawerShow(true);

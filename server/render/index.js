@@ -1,8 +1,9 @@
 'use strict';
 
 const fs = require('fs');
+const ReactDom = require('react-dom/server');
 const requireFromString = require('require-from-string');
-const { renderToStringWithData } = require('@apollo/react-ssr');
+const { matchRoutes } = require('react-router-config');
 const { parseTemplate } = require('./template');
 const { getExtractor, getExtractedData } = require('./data');
 const { getFileData } = require('../util/util');
@@ -74,30 +75,34 @@ const render = (options) => async (req, res) => {
     'viewport.js': `${JS_PATH}/viewport.js`,
   };
 
-  const { createApp, client, createStore } = requireFromString(serverbundle);
+  const { createApp, routes, createStore } = requireFromString(serverbundle);
+
+  // get async store data
   let store = createStore();
+  const promises = matchRoutes(routes, req.url).map((route) => {
+    return route.route.asyncData
+      ? route.route.asyncData(store)
+      : Promise.resolve(null);
+  });
+  await Promise.all(promises);
 
   const extractor = getExtractor(clientManifest, ['app']);
 
   let app = extractor.collectChunks(createApp(req.url, { req }, store));
-  // use gql data to render app
-  app = await renderToStringWithData(app);
 
   // rendertostring must be before extracting tags, or cause error
-  // app = ReactDom.renderToString(app);
+  app = ReactDom.renderToString(app);
 
   // extracted data like link tags, script tags, styles etc
   const extractedData = getExtractedData(extractor);
   // customed file data like other css, js files
   const extraData = await getFileData(extraFiles);
 
-  store = JSON.stringify(client.extract());
-
   const parseData = {
     ...extractedData,
     ...extraData,
     app,
-    state: `window.__APOLLO_STATE__ = ${JSON.stringify(store)}`,
+    state: `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`,
   };
 
   const html = await parseTemplate(template, parseData, {
