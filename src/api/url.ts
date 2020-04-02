@@ -2,12 +2,12 @@
  * @Date: 2020-04-02 00:45:29
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 10:08:31
+ * @LastEditTime: 2020-04-02 15:48:42
  */
 class URL {
   static PARTITION = '/partition';
-  static VIDEO_RANKING_INDEX = '/video/ranking';
-  static VIDEO_RANKING = '/video/ranking/region';
+  static VIDEO_RANKING_LIST = '/video';
+  static VIDEO_INFO = '/video/info';
 }
 
 export default URL;

@@ -81,7 +81,7 @@ const render = (options) => async (req, res) => {
   let store = createStore();
   const promises = matchRoutes(routes, req.url).map((route) => {
     return route.route.asyncData
-      ? route.route.asyncData(store)
+      ? route.route.asyncData(store, route.match.params)
       : Promise.resolve(null);
   });
   await Promise.all(promises);

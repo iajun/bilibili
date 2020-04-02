@@ -9,7 +9,6 @@ import createStore from '@store/index';
 const Root = () => {
   const initialState = (window as any).__INITIAL_STATE__;
   const store = createStore(initialState);
-  console.log(store.getState());
   return (
     <Provider store={store}>
       <Router>

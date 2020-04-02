@@ -2,7 +2,7 @@
  * @Date: 2020-04-02 00:37:14
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 14:58:15
+ * @LastEditTime: 2020-04-02 14:58:23
  */
 import { AnyAction, Dispatch } from 'redux';
 import { getPartitionList, getRankingIndexVideos } from '@api/index';

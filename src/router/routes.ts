@@ -2,16 +2,17 @@
  * @Date: 2020-03-30 00:42:49
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 11:27:46
+ * @LastEditTime: 2020-04-02 16:28:32
  */
 import { Store } from 'redux';
 import { RouteProps as _RouteProps } from 'react-router';
 import { getChannelPageData } from '@store/async-actions/channel';
 import { getIndexPageData } from '@store/async-actions/home';
+import { getVideogPageData } from '@store/async-actions/currentVideo';
 import loadable from '@loadable/component';
 
 interface RouteProps extends _RouteProps {
-  asyncData?: (store: Store) => void;
+  asyncData?: (store: Store, params?: any) => void;
 }
 
 const routes: Array<RouteProps> = [
@@ -43,8 +44,10 @@ const routes: Array<RouteProps> = [
     component: loadable(() => import('@pages/space')),
   },
   {
-    path: '/video/:vid',
+    path: '/video/av:aid',
     component: loadable(() => import('@pages/video')),
+    asyncData: (store, params: any) =>
+      store.dispatch(getVideogPageData(params.aid) as any),
   },
 ];
 

@@ -7,7 +7,7 @@
 
 import { AnyAction, Dispatch } from 'redux';
 import { getPartitionList } from '@api/index';
-import { setPartitionList } from '../actions/index';
+import { setPartitionList } from '../actions';
 
 export function getChannelPageData() {
   return async (dispatch: Dispatch<AnyAction>) => {

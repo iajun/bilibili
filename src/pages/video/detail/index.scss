@@ -1,3 +1,60 @@
+@import '~@scss/element.scss';
+
+.video-info-wrapper {
+  overflow: hidden;
+  padding: 12px 24px;
+  transform: translateZ(0);
+  transition: all 0.5s;
+
+  > div {
+    color: #999;
+    font-size: 24px;
+    margin: 20px 0;
+  }
+}
+
+.video_show {
+  height: initial;
+}
+
+.video_not_show {
+  height: 110px;
+}
+
 .video-title {
-  font-size: 32px;
+  position: relative;
+
+  > span {
+    color: #000;
+    font-size: 32px;
+
+    @include text-ellipsis;
+  }
+
+  > svg {
+    fill: rgb(159, 159, 159);
+    position: absolute;
+    right: 20px;
+    top: 0;
+    width: 36px;
+  }
+}
+
+.video-data {
+  > span {
+    &:first-child {
+      color: #000;
+      margin-right: 40px;
+    }
+
+    em {
+      font-style: normal;
+      margin-right: 20px;
+    }
+  }
+}
+
+.video-desc {
+  line-height: 1.6;
+  white-space: pre-line;
 }
