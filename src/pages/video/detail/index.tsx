@@ -1,10 +1,10 @@
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { VideoItemProps } from '@components/index';
 import React from 'react';
+import Video from '@model/video';
 import styles from './index.scss?modules';
 
 interface LocationState {
-  videoItem: VideoItemProps;
+  videoItem: Video;
 }
 
 export type VideoDetailProps = RouteComponentProps<{}, {}, LocationState>;

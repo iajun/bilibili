@@ -2,24 +2,17 @@ import { Link } from 'react-router-dom';
 import { numFormat } from '@util/numFormat';
 import Icon from '@components/core/icon';
 import React, { SFC } from 'react';
+import Video from '@model/video';
 import classnames from 'classnames';
 import styles from './index.scss?modules';
 
 export interface VideoItemProps {
-  vid: number;
-  pic: string;
-  title: string;
+  videoItem: Video;
   cname?: string;
-  play: number;
-  review: number;
 }
 
-export interface CVideoItemProps {
-  videoItem: VideoItemProps;
-}
-
-const VideoItem: SFC<CVideoItemProps> = ({ videoItem }) => {
-  const { vid, pic, title, cname, play, review } = videoItem;
+const VideoItem: SFC<VideoItemProps> = ({ videoItem, cname }) => {
+  const { aid: vid, pic, title, play, review } = videoItem;
   return (
     <article className={classnames(styles.video, cname)}>
       <Link
@@ -29,7 +22,10 @@ const VideoItem: SFC<CVideoItemProps> = ({ videoItem }) => {
             videoItem,
           },
         }}>
-        <img src={pic} className={styles['video-image']} />
+        <img
+          src={`//localhost:3021/proxy?type=image&url=${pic}`}
+          className={styles['video-image']}
+        />
       </Link>
       <figure className={styles['video-banner']}>
         <span>

@@ -2,7 +2,7 @@
  * @Date: 2020-03-17 20:13:03
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-17 20:52:32
+ * @LastEditTime: 2020-04-02 11:56:28
  */
 export { default as Panel, PanelProps } from './core/panel';
 export { default as Icon, IconProps } from './core/icon';

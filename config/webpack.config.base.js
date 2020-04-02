@@ -2,15 +2,13 @@
  * @Date: 2020-03-30 00:42:49
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-30 16:06:09
+ * @LastEditTime: 2020-04-02 12:14:55
  */
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const generateStyleLoaders = require('./utils/generateStyleLoaders');
 const { CheckerPlugin } = require('awesome-typescript-loader');
-const path = require('path');
-const SpritePlugin = require('svg-sprite-loader/plugin');
 
 const resolve = (relativePath) =>
   require('path').resolve(__dirname, relativePath);
@@ -29,7 +27,7 @@ const baseConfig = {
   },
   output: {
     path: resolve('../dist'),
-    publicPath: '/',
+    publicPath: 'http://localhost:3020/',
   },
   module: {
     rules: [
@@ -37,8 +35,8 @@ const baseConfig = {
         extract: isProd
           ? {}
           : {
-            hmr: true,
-          },
+              hmr: true,
+            },
         postcss: true,
       }),
       {

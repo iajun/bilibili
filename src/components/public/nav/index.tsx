@@ -1,5 +1,5 @@
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { Partition } from '@store/actions';
+import { Partition } from '@api/partition';
 import { transformPartitionData } from './data';
 import { useSelector } from 'react-redux';
 import Icon from '@components/core/icon';
@@ -31,9 +31,8 @@ const BlNav: SFC<BlNavProps> = (props) => {
 
     const curScrollLeft = tabBarRef.current!.scrollLeft;
     const innerWidth = window.innerWidth;
-    if (Math.abs(curScrollLeft - scrollLeft) > innerWidth) {
-      console.log({ curScrollLeft, innerWidth, scrollLeft });
 
+    if (Math.abs(curScrollLeft - scrollLeft) > innerWidth) {
       (tabBarRef.current as HTMLDivElement).scrollLeft = scrollLeft;
     }
   }

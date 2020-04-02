@@ -2,10 +2,10 @@
  * @Date: 2020-03-31 15:50:18
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 11:09:45
+ * @LastEditTime: 2020-04-02 11:54:09
  */
 
-import { Partition } from '@store/actions/partition';
+import { Partition } from '@api/partition';
 
 export interface NavPartitionData extends Partition {
   href: string;

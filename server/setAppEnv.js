@@ -2,7 +2,7 @@
  * @Date: 2020-03-22 15:02:55
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-03-25 10:36:05
+ * @LastEditTime: 2020-04-02 12:14:13
  */
 
 const webpack = require('webpack');
@@ -29,7 +29,7 @@ module.exports = function setAppEnv(app, env) {
 
   app.use(
     webpackDevMiddleware(multiCompiler, {
-      logLevel: 'warn',
+      logLevel: 'error',
     }),
   );
   app.use(webpackHotMiddleware(clientCompiler));

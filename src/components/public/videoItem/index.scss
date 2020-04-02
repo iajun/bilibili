@@ -12,7 +12,6 @@
   }
 }
 
-
 .video-image {
   border-radius: 12px;
   width: 320px;
@@ -21,15 +20,14 @@
 .video-banner {
   box-sizing: border-box;
   color: #fff;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   left: 0;
   margin: 0;
-  padding: 20px 40px;
+  padding: 20px 16px;
   position: absolute;
   top: 144px;
   width: 320px;
-
-  @include flex;
 
   svg {
     fill: #fff;
