@@ -2,7 +2,7 @@
  * @Date: 2020-03-31 16:26:43
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 18:22:26
+ * @LastEditTime: 2020-04-03 22:15:10
  */
 import * as actionTypes from './action-types';
 import { AnyAction, Reducer } from 'redux';
@@ -31,6 +31,7 @@ export const initialStore = {
     relatedList: [],
     tags: [],
   },
+  channelVideoList: [],
 };
 
 const partitionReducer: Reducer<Partition[]> = (state = initialStore.partitionList, action: AnyAction) => {
@@ -66,6 +67,16 @@ const currentVideoReducer: Reducer<typeof initialStore.currentVideo> = (
   }
 };
 
+const channelVideoReducer: Reducer<any> = (state = initialStore.channelVideoList, action: AnyAction) => {
+  switch (action.type) {
+    case actionTypes.SET_CHANNEL_VIDEO_LIST:
+      return action.channelVideoList;
+
+    default:
+      return state;
+  }
+};
+
 const combinedStore = combineReducers({
   // nav partitions
   partitionList: partitionReducer,
@@ -73,6 +84,8 @@ const combinedStore = combineReducers({
   videoRankingIndexList: videoReducer,
   // video play page
   currentVideo: currentVideoReducer,
+  // channel video list
+  channelVideoList: channelVideoReducer,
 });
 
 export default combinedStore;

@@ -73,6 +73,7 @@
 
 .drawer-visible {
   animation: slideInDown 0.3s ease;
+  visibility: visible;
 }
 
 .drawer-invisible {

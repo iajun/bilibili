@@ -2,7 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": ["es6", "dom", "ES2015.Iterable"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,

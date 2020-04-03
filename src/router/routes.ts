@@ -2,7 +2,7 @@
  * @Date: 2020-03-30 00:42:49
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 10:28:11
+ * @LastEditTime: 2020-04-03 20:18:01
  */
 import { Store } from 'redux';
 import { RouteProps as _RouteProps } from 'react-router';
@@ -25,7 +25,7 @@ const routes: Array<RouteProps> = [
   {
     path: '/channel/:cid',
     component: loadable(() => import('@pages/channel')),
-    asyncData: (store) => store.dispatch(getChannelPageData() as any),
+    asyncData: (store, params) => store.dispatch(getChannelPageData(params) as any),
   },
   {
     path: '/h5',

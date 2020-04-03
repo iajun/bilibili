@@ -2,11 +2,12 @@
  * @Date: 2020-04-02 14:57:01
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 17:42:38
+ * @LastEditTime: 2020-04-03 22:25:27
  */
 
 import * as actionTypes from './action-types';
 import { Partition } from '@api/partition';
+import { initialStore } from './reducers';
 import Video from '@model/video';
 
 // index ranking videos
@@ -38,5 +39,17 @@ export function setPartitionList(partitions: Partition[]) {
   return {
     type: actionTypes.SET_PARTITION_LIST,
     partitions,
+  };
+}
+
+export interface ChannelVideoList {
+  typename: string;
+  videoList: Video[];
+}
+// channel video list
+export function setChannelVideoList(channelVideoList: ChannelVideoList[]) {
+  return {
+    type: actionTypes.SET_CHANNEL_VIDEO_LIST,
+    channelVideoList,
   };
 }

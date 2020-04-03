@@ -2,7 +2,7 @@
  * @Date: 2020-04-02 00:42:17
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 10:06:26
+ * @LastEditTime: 2020-04-03 22:05:03
  */
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ instance.interceptors.request.use((config) => {
 });
 
 instance.interceptors.response.use((data) => {
-  return data.data;
+  return data;
 });
 
 export default instance;

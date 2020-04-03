@@ -2,20 +2,21 @@
  * @Date: 2020-04-02 00:42:00
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 11:23:18
+ * @LastEditTime: 2020-04-03 22:37:59
  */
 import { AxiosPromise } from 'axios';
 import URL from './url';
 import fetch from '@util/fetch';
 
 export interface Partition {
-  tid: string;
+  tid: string | number;
   typename: string;
   subPartition: Partition[];
 }
 
 export function getPartitionList(): AxiosPromise<Partition[]> {
-  return fetch({
+  const ret = fetch({
     url: URL.PARTITION,
   });
+  return ret;
 }
