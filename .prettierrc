@@ -3,5 +3,6 @@
   "trailingComma": "all",
   "semi": true,
   "jsxBracketSameLine": true,
-  "insertPragma": false
+  "insertPragma": false,
+  "printWidth": 120
 }

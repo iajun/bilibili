@@ -2,7 +2,7 @@
  * @Date: 2020-03-31 16:26:43
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 17:02:01
+ * @LastEditTime: 2020-04-03 18:22:26
  */
 import * as actionTypes from './action-types';
 import { AnyAction, Reducer } from 'redux';
@@ -14,27 +14,26 @@ export const initialStore = {
   partitionList: [],
   videoRankingIndexList: [],
   currentVideo: {
-    info: {
-      aid: '',
-      bid: '',
-      cid: '',
-      title: '',
-      author: '',
-      coins: 0,
-      duration: '',
-      pic: '',
-      play: 0,
-      review: 0,
-      danmu: 0,
-    },
+    aid: '',
+    bid: '',
+    cid: '',
+    title: '',
+    author: '',
+    coins: 0,
+    duration: '',
+    pic: '',
+    play: 0,
+    review: 0,
+    danmu: 0,
+    src: '',
+    ctime: '',
+    desc: '',
+    relatedList: [],
     tags: [],
   },
 };
 
-const partitionReducer: Reducer<Partition[]> = (
-  state = initialStore.partitionList,
-  action: AnyAction,
-) => {
+const partitionReducer: Reducer<Partition[]> = (state = initialStore.partitionList, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.SET_PARTITION_LIST:
       return action.partitions;
@@ -43,10 +42,7 @@ const partitionReducer: Reducer<Partition[]> = (
   }
 };
 
-const videoReducer: Reducer<Video[]> = (
-  state = initialStore.videoRankingIndexList,
-  action: AnyAction,
-) => {
+const videoReducer: Reducer<Video[]> = (state = initialStore.videoRankingIndexList, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.SET_RANKING_INDEX_VIDEO:
       return action.videoList;
@@ -61,7 +57,9 @@ const currentVideoReducer: Reducer<typeof initialStore.currentVideo> = (
 ) => {
   switch (action.type) {
     case actionTypes.SET_CURRENT_VIDEO_INFO:
-      return action.videoInfo;
+      return { ...state, ...action.videoInfo };
+    case actionTypes.SET_CURRENT_RELATED_VIDEO:
+      return { ...state, relatedList: action.relatedList };
 
     default:
       return state;

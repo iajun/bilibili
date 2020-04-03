@@ -2,7 +2,7 @@
  * @Date: 2020-04-02 14:57:01
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 17:01:38
+ * @LastEditTime: 2020-04-03 17:42:38
  */
 
 import * as actionTypes from './action-types';
@@ -22,6 +22,14 @@ export function setCurrentVideoInfo(videoInfo: Video) {
   return {
     type: actionTypes.SET_CURRENT_VIDEO_INFO,
     videoInfo,
+  };
+}
+
+// current related video
+export function setCurrentRelatedVideoList(relatedList: Video[]) {
+  return {
+    type: actionTypes.SET_CURRENT_RELATED_VIDEO,
+    relatedList,
   };
 }
 

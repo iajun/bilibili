@@ -7,13 +7,7 @@ const { matchRoutes } = require('react-router-config');
 const { parseTemplate } = require('./template');
 const { getExtractor, getExtractedData } = require('./data');
 const { getFileData } = require('../util/util');
-const {
-  TEMPLATE_PATH,
-  SERVERBUNDLE_PATH,
-  MANIFEST_PATH,
-  JS_PATH,
-  CSS_PATH,
-} = require('../util/paths');
+const { TEMPLATE_PATH, SERVERBUNDLE_PATH, MANIFEST_PATH, JS_PATH, CSS_PATH } = require('../util/paths');
 
 /**
  * normalize options in case of it is lacked or invalid
@@ -26,12 +20,9 @@ function normalizeOptions(options) {
   options.template = options.template || `${TEMPLATE_PATH}/index.html`;
 
   try {
-    options.clientManifest =
-      options.clientManifest ||
-      JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
+    options.clientManifest = options.clientManifest || JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
 
-    options.serverbundle =
-      options.serverbundle || fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
+    options.serverbundle = options.serverbundle || fs.readFileSync(SERVERBUNDLE_PATH, 'utf-8');
   } catch (e) {
     throw new Error(
       'You should build your project first in production mode, or pass client manifest and server bundle to make it work!',
@@ -80,9 +71,7 @@ const render = (options) => async (req, res) => {
   // get async store data
   let store = createStore();
   const promises = matchRoutes(routes, req.url).map((route) => {
-    return route.route.asyncData
-      ? route.route.asyncData(store, route.match.params)
-      : Promise.resolve(null);
+    return route.route.asyncData ? route.route.asyncData(store, route.match.params) : Promise.resolve(null);
   });
   await Promise.all(promises);
 
@@ -106,7 +95,7 @@ const render = (options) => async (req, res) => {
   };
 
   const html = await parseTemplate(template, parseData, {
-    minify: false,
+    minify: true,
   });
 
   res.send(html);

@@ -2,11 +2,11 @@
  * @Date: 2020-04-01 22:24:15
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 15:47:34
+ * @LastEditTime: 2020-04-03 17:43:59
  */
 const express = require('express');
 const Err = require('../lib/error');
-const { fetchVideoList, fetchVideoInfo } = require('../api');
+const { fetchVideoList, fetchVideoInfo, fetchRelatedVideo } = require('../api');
 
 const router = express.Router();
 
@@ -19,6 +19,7 @@ router.get('/info', async function (req, res) {
   if (!req.query.aid) {
     throw new Error(Err.VIDEO_INFO_AID_ERROR);
   }
+
   let data = await fetchVideoInfo(req.query.aid);
   data && data.reduxAsyncConnect ? (data = data.reduxAsyncConnect) : {};
 
@@ -29,6 +30,14 @@ router.get('/info', async function (req, res) {
     videoTags,
     videoInfo,
   });
+});
+
+router.get('/related', async function (req, res, next) {
+  if (!req.query.aid) {
+    throw new Error(Err.VIDEO_INFO_AID_ERROR);
+  }
+  const data = await fetchRelatedVideo(req.query.aid);
+  res.send(data);
 });
 
 module.exports = router;

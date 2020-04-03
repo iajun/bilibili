@@ -2,7 +2,7 @@
  * @Date: 2020-04-02 01:09:52
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 18:05:04
+ * @LastEditTime: 2020-04-03 18:00:25
  */
 
 interface Tag {
@@ -22,6 +22,7 @@ class Video {
   public danmu: number;
   public ctime: number;
   public desc: string;
+  public src: string;
   public tags: Tag[];
   public pages: any[];
 
@@ -38,6 +39,7 @@ class Video {
     danmu = 0,
     ctime = 0,
     desc = '',
+    src = '',
     tags = [],
     pages = [],
   ) {
@@ -53,6 +55,7 @@ class Video {
     this.danmu = danmu;
     this.ctime = ctime;
     this.desc = desc;
+    this.src = src;
     this.tags = tags;
     this.pages = pages;
   }
@@ -74,7 +77,6 @@ class Video {
 
   public static createVideoFromVideoInfo(data: any) {
     const info = data.videoInfo || {};
-    console.log(info);
 
     return new Video(
       info.aid,
@@ -89,6 +91,7 @@ class Video {
       info.stat.danmaku,
       info.ctime * 1000,
       info.desc,
+      info.initUrl,
       data.videoTags || [],
       info.pages || [],
     );

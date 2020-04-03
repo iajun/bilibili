@@ -2,22 +2,22 @@
  * @Date: 2020-04-01 22:23:05
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-01 22:34:49
+ * @LastEditTime: 2020-04-03 12:42:12
  */
 
 const vm = require('vm');
 const Err = require('./error');
 
 exports.extractState = function extractState(html) {
-  const REGEX = /(window.__INITIAL_STATE__.*?;)/gs;
-  const matches = html.match(REGEX);
+  const REGEX = /(window\.__INITIAL_STATE__.*?)<\/script>/gs;
+  const matches = REGEX.exec(html);
 
   const context = vm.createContext({
     window: {},
   });
 
   try {
-    vm.runInContext(matches[0], context);
+    vm.runInContext(matches[1], context);
   } catch (error) {
     throw new Error(Err.SERVER_EXTRACT_STATE_ERROR);
   }

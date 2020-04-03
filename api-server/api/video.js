@@ -2,7 +2,7 @@
  * @Date: 2020-04-01 22:28:29
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 15:57:46
+ * @LastEditTime: 2020-04-03 17:27:35
  */
 const fetch = require('../lib/fetch');
 const URL = require('./url');
@@ -61,4 +61,8 @@ exports.fetchVideoInfo = async function (aid) {
   }
 
   return extractState(html);
+};
+
+exports.fetchRelatedVideo = async function (aid) {
+  return await fetch({ url: URL.VIDEO_RELATED, params: { aid } });
 };

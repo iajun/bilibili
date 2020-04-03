@@ -8,6 +8,7 @@ class URL {
   static PARTITION = '/partition';
   static VIDEO_RANKING_LIST = '/video';
   static VIDEO_INFO = '/video/info';
+  static VIDEO_RELATED = '/video/related';
 }
 
 export default URL;

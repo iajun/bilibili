@@ -3,7 +3,7 @@
  * @Date: 2020-04-02 00:48:26
  * @Author: Sharp
  * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 17:00:02
+ * @LastEditTime: 2020-04-03 17:48:31
  */
 import URL from './url';
 import Video from '@model/video';
@@ -34,4 +34,13 @@ export async function getVideoInfo(params = {}) {
   data.videoTags = tags;
 
   return Video.createVideoFromVideoInfo(data);
+}
+
+export async function getVideoRelatedList(params = {}) {
+  const data: any = await fetch({
+    url: URL.VIDEO_RELATED,
+    params,
+  });
+
+  return data.data.map((videoInfo: any) => Video.createVideoFromVideoInfo({ videoInfo }));
 }
