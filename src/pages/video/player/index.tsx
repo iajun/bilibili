@@ -1,6 +1,7 @@
 import { formatSeconds } from '@util/numFormat';
 import { initialStore } from '@store/reducers';
-import React, { SyntheticEvent, useRef, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import fetch from '@util/fetch';
 import styles from './index.scss?modules';
 
 export interface VideoPlayerProps {

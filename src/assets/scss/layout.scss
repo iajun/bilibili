@@ -5,3 +5,20 @@
   display: if($inline == block, flex, inline-flex);
   flex-flow: $direction, $wrap;
 }
+
+@mixin layout-scroll() {
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+
+.layout-header-main {
+  height: calc(100vh - 88px);
+
+  @include layout-scroll();
+}
+
+.layout-header-nav-main {
+  height: calc(100vh - 168px);
+
+  @include layout-scroll();
+}

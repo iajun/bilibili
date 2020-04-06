@@ -6,10 +6,10 @@
  */
 const express = require('express');
 const fetch = require('../lib/fetch');
-const axios = require('axios');
 const Err = require('../lib/error');
+const cors = require('cors');
 const { logger } = require('../lib/log');
-require('express-async-errors');
+// require('express-async-errors');
 
 class ApiServer {
   constructor(config) {
@@ -34,19 +34,27 @@ class ApiServer {
   }
 
   setupMiddleware() {
+    this.appendMiddleware(
+      cors({
+        origin: ['http://localhost:3020'],
+        methods: ['GET'],
+      }),
+    );
     this.appendMiddleware(express.json());
   }
 
   setupProxy() {
     this.app.get('/proxy', async (req, res, next) => {
-      const { query } = req;
+      const { query, url } = req;
+      const proxyUrl = url.slice(url.indexOf('url=') + 4);
+
       let stream;
       if (query.type === 'image') {
-        stream = await this.handleProxyImage(req, res);
+        stream = await this.handleProxyImage(proxyUrl, req, res);
       }
 
       if (query.type === 'video') {
-        stream = await this.handleProxyVideo(req, res);
+        stream = await this.handleProxyVideo(proxyUrl, req, res);
       }
 
       if (!stream) {
@@ -57,41 +65,35 @@ class ApiServer {
     });
   }
 
-  async handleProxyVideo(req, res) {
+  async handleProxyVideo(url, req, res) {
     const [start, end] = req.get('Range').replace('bytes=', '').split('-');
 
-    const url = req.query.url;
-    delete req.query.url;
-    delete req.query.type;
-
-    const response = await axios({
+    const response = await fetch({
       url,
       responseType: 'stream',
-      params: req.query,
       headers: {
         Range: `bytes=${start}-${end}`,
       },
     });
 
-    res.status(206);
+    res.status(response.status);
 
     res.set({ ...response.headers, 'Content-Type': 'video/mp4' });
 
     return response.data;
   }
 
-  handleProxyImage(req, res) {
-    const imgUrl = req.query.url;
-    const data = fetch({
+  async handleProxyImage(url, req, res) {
+    const data = await fetch({
       responseType: 'stream',
-      url: imgUrl,
+      url,
     });
-    const imageArr = imgUrl.split('.');
+    const imageArr = url.split('.');
     const ext = imageArr[imageArr.length - 1];
 
     res.set('Content-Type', `image/${ext}`);
 
-    return data;
+    return data.data;
   }
 
   setupRoutes() {
@@ -119,7 +121,7 @@ class ApiServer {
         code = '500100';
       }
 
-      logger.error(`[errMsg]: ${err.message}; [stack]: ${err.stack}`);
+      logger.error(`[errMsg]: ${err.message}`);
 
       res.status(+code.slice(0, 3)).send({ code, errMsg });
     });

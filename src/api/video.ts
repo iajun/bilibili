@@ -44,5 +44,5 @@ export async function getVideoRelatedList(params = {}): Promise<Video[]> {
     params,
   });
 
-  return data.data.data.map((videoInfo: any) => Video.createVideoFromVideoInfo({ videoInfo }));
+  return data.data.map((videoInfo: any) => Video.createVideoFromVideoInfo({ videoInfo }));
 }

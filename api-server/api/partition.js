@@ -9,11 +9,11 @@ const { extractState } = require('../lib/util');
 const URL = require('./url');
 
 exports.fetchPartitionList = async function fetchPartitionList(params) {
-  const { partitionList } = extractState(
-    await fetch({
-      url: URL.PARTITION,
-    }),
-  );
+  const data = await fetch({
+    url: URL.PARTITION,
+  });
+
+  const { partitionList } = extractState(data.data);
 
   return partitionList['0'].map(({ tid, typename }) => {
     return {

@@ -12,15 +12,15 @@ const { extractState } = require('../lib/util');
 async function fetchRankingIndexVideos(params = {}) {
   const { offset = 0, limit = 20 } = params;
 
-  data = await fetch({
+  const data = await fetch({
     url: URL.RANKING_INDEX,
   });
 
-  if (!data || !data.data || !data.data.list) {
+  if (!data || !data.data || !data.data.data || !data.data.data.list) {
     throw new Error(Err.FETCH_VIDEO_LIST_ERROR);
   }
 
-  const ret = data.data.list || [];
+  const ret = data.data.data.list || [];
 
   return ret.length > 3 ? ret.slice(offset, limit) : ret;
 }
@@ -33,13 +33,13 @@ async function fetchRankingRegionVideos(params = {}) {
   };
   const { offset = 0, limit = 4 } = params;
 
-  data = await fetch({ url: URL.RANKING_REGION, params: reqParams });
+  const data = await fetch({ url: URL.RANKING_REGION, params: reqParams });
 
-  if (!data || !data.data) {
+  if (!data || !data.data || !data.data.data) {
     throw new Error(Err.FETCH_VIDEO_LIST_ERROR);
   }
 
-  const ret = data.data;
+  const ret = data.data.data;
 
   return ret.length > 4 ? ret.slice(offset, limit) : ret;
 }
@@ -54,15 +54,20 @@ exports.fetchVideoList = async function (params = {}) {
 
 // video play info in detail
 exports.fetchVideoInfo = async function (aid) {
-  const html = await fetch({ url: URL.VIDEO_PLAY + aid });
+  const data = await fetch({ url: URL.VIDEO_PLAY + aid });
 
-  if (!html) {
+  if (!data.data) {
     throw new Error(Err.FETCH_VIDEO_INFO_ERROR);
   }
 
-  return extractState(html);
+  return extractState(data.data);
 };
 
 exports.fetchRelatedVideo = async function (aid) {
-  return await fetch({ url: URL.VIDEO_RELATED, params: { aid } });
+  const data = await fetch({ url: URL.VIDEO_RELATED, params: { aid } });
+
+  if (!data.data) {
+    throw new Error(Err.VIDEO_INFO_AID_ERROR);
+  }
+  return data.data.data;
 };

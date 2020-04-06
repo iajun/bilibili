@@ -7,7 +7,8 @@
 
 const axios = require('axios');
 const Err = require('./error');
-require('express-async-errors');
+const { logger } = require('./log');
+const qs = require('querystring');
 
 const baseHeader = {
   'User-Agent':
@@ -29,9 +30,18 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response;
   },
-  () => {
+  (err, res) => {
+    const config = err.config;
+
+    let url, method;
+
+    if ((method = config.method = 'get')) {
+      url = config.url + '?' + qs.stringify(config.params);
+    }
+
+    logger.error(`fetch data error: method: ${method}, url: ${url}`);
     throw new Error(Err.SERVER_FETCH_DATA_ERROR);
   },
 );
