@@ -20,7 +20,7 @@ app.get('/transfer/img', async (req, res) => {
   response.pipe(res);
 });
 
-setAppEnv(app, process.env.NODE_ENV || 'development');
+setAppEnv(app, process.env.NODE_ENV || 'production');
 
 app.listen(LISTEN_PORT, function () {
   console.log('server is running at port 3020');

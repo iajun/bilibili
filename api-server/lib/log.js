@@ -30,7 +30,7 @@ log.configure({
   appenders: {
     out: { type: 'console' },
     error: {
-      type: 'DateFile',
+      type: 'dateFile',
       filename: 'err.log',
       pattern: 'yyyy-MM-DD.err.log',
       layout: {

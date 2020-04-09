@@ -13,8 +13,8 @@ export interface NavPartitionData extends Partition {
 
 const toRouteMap = {
   '-1': '/',
-  '-2': '/',
-  '-3': '/',
+  '-2': '/unknown1',
+  '-3': '/unknown2',
 };
 
 export function transformPartitionData(
