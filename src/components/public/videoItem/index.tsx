@@ -10,12 +10,14 @@ export interface VideoItemProps {
   cname?: string;
 }
 
+const URL_PREFIX = process.env.URL_PREFIX;
+
 const VideoItem: SFC<VideoItemProps> = ({ videoItem, cname }) => {
   const { aid: vid, pic, title, play, review } = videoItem;
   return (
     <article className={classnames(styles.video, cname)}>
       <a href={`/video/av${vid}`}>
-        <img src={`//localhost:3021/proxy?type=image&url=${pic}`} className={styles['video-image']} />
+        <img src={`${URL_PREFIX}/proxy?type=image&url=${pic}`} className={styles['video-image']} />
       </a>
       <figure className={styles['video-banner']}>
         <span>

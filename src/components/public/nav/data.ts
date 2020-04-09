@@ -1,8 +1,8 @@
 /*
  * @Date: 2020-03-31 15:50:18
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-02 11:54:09
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-09 20:41:06
  */
 
 import { Partition } from '@api/partition';
@@ -13,13 +13,11 @@ export interface NavPartitionData extends Partition {
 
 const toRouteMap = {
   '-1': '/',
-  '-2': '/',
-  '-3': '/',
+  '-2': '/waitfordone',
+  '-3': '/waitfordone',
 };
 
-export function transformPartitionData(
-  partitionList: Partition[],
-): NavPartitionData[] {
+export function transformPartitionData(partitionList: Partition[]): NavPartitionData[] {
   const idxPartition: Partition[] = [
     {
       tid: '-1',

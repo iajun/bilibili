@@ -1,6 +1,6 @@
 import { formatSeconds } from '@util/numFormat';
 import { initialStore } from '@store/reducers';
-import React, { ChangeEvent, MouseEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import fetch from '@util/fetch';
 import styles from './index.scss?modules';
 
@@ -8,12 +8,14 @@ export interface VideoPlayerProps {
   video: typeof initialStore.currentVideo;
 }
 
+const URL_PREFIX = process.env.URL_PREFIX;
+
 const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
   const [hasPlayedVideo, setHasPlayedVideo] = useState(false);
   const [isVideoPaused, setIsVideoPaused] = useState(false);
   const [isShowControlLayer, setIsShowCtrlLayer] = useState(false);
   const [playedVideoTime, setPlayedVideoTime] = useState(0);
-  const [url, setUrl] = useState(`http://localhost:3021/proxy?type=video&url=https:${video.src}`);
+  const [url, setUrl] = useState(`${URL_PREFIX}/proxy?type=video&url=https:${video.src}`);
   const videoRef = useRef<HTMLVideoElement>(null);
   const trackRef = useRef<HTMLInputElement>(null);
   const barrageRef = useRef<HTMLCanvasElement>(null);
@@ -106,7 +108,6 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
           onCanPlayCapture={onCanPlayCapture}
           onPauseCapture={onPauseCapture}
           onPlayCapture={onPlayCapture}>
-          {/* <source src={`//localhost:3021/proxy?type=video&url=https:${video.src}`} type="video/mp4" /> */}
           <source src={`${url}`} type="video/mp4" />
         </video>
         <canvas className={styles['barrage-canvas']} ref={barrageRef}></canvas>
@@ -114,14 +115,14 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
           <div className={styles['video_control_icon']}>
             {isVideoPaused ? (
               <img
-                src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png"
+                src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png`}
                 alt="play-video"
                 className={`${styles['icon']} ${styles['icon_play_video']}`}
                 onClick={() => toggleVideoPause(false)}
               />
             ) : (
               <img
-                src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Pause.png"
+                src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Pause.png`}
                 alt="pause-video"
                 className={`${styles['icon']} ${styles['icon_pause_video']}`}
                 onClick={() => toggleVideoPause(true)}
@@ -147,11 +148,11 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
             </div>
             <p className={styles['control_bar_icon']}>
               <img
-                src={`//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/Icon_Barrage-On.png`}
+                src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/Icon_Barrage-On.png`}
                 onClick={exitFullScreen}
               />
               <img
-                src={`//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/Icon_Fullscreen.png`}
+                src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/Icon_Fullscreen.png`}
                 onClick={toFullScreen}
               />
             </p>
@@ -163,7 +164,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
       <div style={{ display: hasPlayedVideo ? 'none' : 'block' }}>
         <div>
           <img
-            src={`//localhost:3021/proxy?type=image&url=${video.pic}`}
+            src={`${URL_PREFIX}/proxy?type=image&url=${video.pic}`}
             alt="video-cover"
             className={styles['video_cover']}
           />
@@ -171,7 +172,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
         <div className={styles['load_wrapper']}>
           <p className={styles['video_duration']}>{video.duration}</p>
           <img
-            src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png"
+            src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png`}
             alt="play-video"
             className={styles['icon_play_video']}
             onClick={onStartPlayVideo}

@@ -3,6 +3,8 @@ import React, { SFC } from 'react';
 import logo from '@img/logo.svg';
 import styles from './index.scss?modules';
 
+const URL_PREFIX = process.env.URL_PREFIX;
+
 const Header: SFC<{}> = () => {
   return (
     <header className={styles.header}>
@@ -17,7 +19,7 @@ const Header: SFC<{}> = () => {
       </a>
       <a href="/space">
         <img
-          src="//localhost:3020/transfer/img?url=http://i0.hdslb.com/bfs/face/member/noface.jpg@53w_53h.webp"
+          src={`${URL_PREFIX}/proxy?type=image&url=http://i0.hdslb.com/bfs/face/member/noface.jpg@53w_53h.webp`}
           className={styles.header_avatar}
         />
       </a>
