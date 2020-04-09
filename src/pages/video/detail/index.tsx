@@ -9,6 +9,8 @@ export type VideoDetailProps = {
   video: typeof initialStore.currentVideo;
 };
 
+const { URL_PREFIX } = process.env;
+
 const VideoDetail: React.SFC<VideoDetailProps> = ({ video }) => {
   const [isShowVideoDesc, setShowVideoDesc] = useState(false);
   const detailRef = useRef<HTMLDivElement>(null);
@@ -86,7 +88,7 @@ const VideoDetail: React.SFC<VideoDetailProps> = ({ video }) => {
             <span>分享</span>
           </div>
           <div>
-            <img src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/comment.png" />
+            <img src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/comment.png`} />
             <span>{video.review} 评论</span>
           </div>
         </div>

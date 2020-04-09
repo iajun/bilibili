@@ -1,13 +1,14 @@
 /*
  * @Date: 2020-03-30 00:42:49
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 15:22:44
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-09 20:26:24
  */
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const generateStyleLoaders = require('./utils/generateStyleLoaders');
+const webpack = require('webpack');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 
 const resolve = (relativePath) => require('path').resolve(__dirname, relativePath);
@@ -79,6 +80,9 @@ const baseConfig = {
     ]),
     new MiniCssExtractPlugin({
       filename: isProd ? 'static/css/[name].[contenthash].css' : 'static/css/[name].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': require(isProd ? './env.prod' : './env.dev'),
     }),
   ],
 };
