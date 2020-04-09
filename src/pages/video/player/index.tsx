@@ -49,7 +49,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
     durationRef.current = $e.target.duration;
   }
 
-  function showVideoControl($e: MouseEvent<HTMLDivElement>) {
+  function showVideoControl($e: any) {
     if ($e.target.nodeName !== 'VIDEO') return;
     setIsShowCtrlLayer(!isShowControlLayer);
   }
@@ -117,14 +117,14 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
                 src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png"
                 alt="play-video"
                 className={`${styles['icon']} ${styles['icon_play_video']}`}
-                onClick={($e) => toggleVideoPause(false)}
+                onClick={() => toggleVideoPause(false)}
               />
             ) : (
               <img
                 src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Pause.png"
                 alt="pause-video"
                 className={`${styles['icon']} ${styles['icon_pause_video']}`}
-                onClick={($e) => toggleVideoPause(true)}
+                onClick={() => toggleVideoPause(true)}
               />
             )}
           </div>

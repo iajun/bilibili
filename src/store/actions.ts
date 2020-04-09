@@ -1,13 +1,12 @@
 /*
  * @Date: 2020-04-02 14:57:01
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 22:25:27
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-09 18:23:44
  */
 
 import * as actionTypes from './action-types';
 import { Partition } from '@api/partition';
-import { initialStore } from './reducers';
 import Video from '@model/video';
 
 // index ranking videos
