@@ -9,7 +9,7 @@ const fetch = require('../lib/fetch');
 const Err = require('../lib/error');
 const cors = require('cors');
 const { logger } = require('../lib/log');
-// require('express-async-errors');
+require('express-async-errors');
 
 class ApiServer {
   constructor(config) {
@@ -34,17 +34,12 @@ class ApiServer {
   }
 
   setupMiddleware() {
-    this.appendMiddleware(
-      cors({
-        origin: ['http://localhost:3020'],
-        methods: ['GET'],
-      }),
-    );
-    this.appendMiddleware(express.json());
+    this.app.use(cors());
+    this.app.use(express.json());
   }
 
   setupProxy() {
-    this.app.get('/proxy', async (req, res, next) => {
+    this.app.get('/proxy', cors(), async (req, res, next) => {
       const { query, url } = req;
       const proxyUrl = url.slice(url.indexOf('url=') + 4);
 
@@ -77,7 +72,6 @@ class ApiServer {
     });
 
     res.status(response.status);
-
     res.set({ ...response.headers, 'Content-Type': 'video/mp4' });
 
     return response.data;
@@ -101,10 +95,6 @@ class ApiServer {
     Object.keys(routes).forEach((url) => {
       this.app.use(`/${url}`, routes[url]);
     });
-  }
-
-  appendMiddleware(mdw, ...args) {
-    this.app.use(mdw, ...args);
   }
 
   handleError() {

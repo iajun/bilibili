@@ -12,6 +12,7 @@ interface Tag {
 class Video {
   public aid: string;
   public bid: string;
+  public cid: string;
   public author: string;
   public coins: number;
   public duration: string;
@@ -29,6 +30,7 @@ class Video {
   private constructor(
     aid = '',
     bid = '',
+    cid = '',
     author = '',
     coins = 0,
     duration = '',
@@ -45,6 +47,7 @@ class Video {
   ) {
     this.aid = aid;
     this.bid = bid;
+    this.cid = cid;
     this.author = author;
     this.coins = coins;
     this.duration = duration;
@@ -64,6 +67,7 @@ class Video {
     return new Video(
       data.aid,
       data.bvid,
+      data.cid,
       data.author,
       data.coins,
       data.duration,
@@ -81,6 +85,7 @@ class Video {
     return new Video(
       info.aid,
       info.bvid,
+      info.cid,
       info.owner.name,
       info.stat.coin,
       info.duration,

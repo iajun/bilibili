@@ -1,6 +1,6 @@
 import { formatSeconds } from '@util/numFormat';
 import { initialStore } from '@store/reducers';
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import fetch from '@util/fetch';
 import styles from './index.scss?modules';
 
@@ -13,14 +13,44 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
   const [isVideoPaused, setIsVideoPaused] = useState(false);
   const [isShowControlLayer, setIsShowCtrlLayer] = useState(false);
   const [playedVideoTime, setPlayedVideoTime] = useState(0);
+  const [url, setUrl] = useState(`http://localhost:3021/proxy?type=video&url=https:${video.src}`);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const trackRef = useRef<HTMLInputElement>(null);
+  const barrageRef = useRef<HTMLCanvasElement>(null);
   const durationRef = useRef<number>(0);
+
+  const barPercentTmp = (playedVideoTime / durationRef.current) * 100;
+  const processbarPercent = isNaN(+barPercentTmp) ? 0 : (barPercentTmp | 0) + '%';
+
+  useEffect(() => {
+    fetch({
+      url,
+      headers: {
+        Range: 'bytes=0-1',
+      },
+      responseType: 'blob',
+    }).then((response) => {
+      const url = URL.createObjectURL(response.data);
+      setUrl(url);
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      });
+    });
+  }, []);
+
+  function onSetVideoTime($e: ChangeEvent<HTMLInputElement>) {
+    $e.stopPropagation();
+    videoRef.current!.currentTime = (+$e.target.value / 100) * durationRef.current;
+    trackRef.current!.value = $e.target.value;
+    trackRef.current!.style.background = `linear-gradient(to right, #de698c 0, #de698c ${processbarPercent}, rgba(256, 256, 256, 0.6) ${processbarPercent}, rgba(256, 256, 256, 0.6) 100%)  no-repeat`;
+  }
 
   function onCanPlayCapture($e: any) {
     durationRef.current = $e.target.duration;
   }
 
-  function showVideoControl() {
+  function showVideoControl($e: MouseEvent<HTMLDivElement>) {
+    if ($e.target.nodeName !== 'VIDEO') return;
     setIsShowCtrlLayer(!isShowControlLayer);
   }
 
@@ -48,8 +78,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
     (videoRef.current as any).timer = null;
   }
 
-  function toggleVideoPause(toPaused: boolean, $e?: SyntheticEvent) {
-    $e?.preventDefault();
+  function toggleVideoPause(toPaused: boolean) {
     setIsVideoPaused(toPaused);
     const el = videoRef.current;
 
@@ -61,8 +90,10 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
     toggleVideoPause(false);
   }
 
-  const barPercentTmp = ((playedVideoTime / durationRef.current) * 100).toFixed(2);
-  const processbarPercent = isNaN(+barPercentTmp) ? 0 : barPercentTmp + '%';
+  if (trackRef.current) {
+    trackRef.current.style.background = `linear-gradient(to right, #de698c 0, #de698c ${processbarPercent}, rgba(256, 256, 256, 0.6) ${processbarPercent}, rgba(256, 256, 256, 0.6) 100%)  no-repeat`;
+    trackRef.current.value = '' + (videoRef.current!.currentTime / durationRef.current) * 100;
+  }
 
   return (
     <div className={styles['player_wrapper']}>
@@ -75,8 +106,10 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
           onCanPlayCapture={onCanPlayCapture}
           onPauseCapture={onPauseCapture}
           onPlayCapture={onPlayCapture}>
-          <source src={`//localhost:3021/proxy?type=video&url=https:${video.src}`} type="video/mp4" />
+          {/* <source src={`//localhost:3021/proxy?type=video&url=https:${video.src}`} type="video/mp4" /> */}
+          <source src={`${url}`} type="video/mp4" />
         </video>
+        <canvas className={styles['barrage-canvas']} ref={barrageRef}></canvas>
         <div className={styles['video_control_layer']} style={{ display: isShowControlLayer ? 'block' : 'none' }}>
           <div className={styles['video_control_icon']}>
             {isVideoPaused ? (
@@ -84,14 +117,14 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
                 src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png"
                 alt="play-video"
                 className={`${styles['icon']} ${styles['icon_play_video']}`}
-                onClick={($e) => toggleVideoPause(false, $e)}
+                onClick={($e) => toggleVideoPause(false)}
               />
             ) : (
               <img
                 src="//localhost:3021/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Pause.png"
                 alt="pause-video"
                 className={`${styles['icon']} ${styles['icon_pause_video']}`}
-                onClick={($e) => toggleVideoPause(true, $e)}
+                onClick={($e) => toggleVideoPause(true)}
               />
             )}
           </div>
@@ -100,7 +133,17 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
               {formatSeconds(playedVideoTime)}/{formatSeconds(durationRef.current)}
             </p>
             <div className={styles['control_process_bar']}>
-              <div className={styles['control_process_bar_data']} style={{ width: processbarPercent }}></div>
+              {/* <div className={styles['control_process_bar_data']} style={{ width: processbarPercent }}> */}
+              <input
+                ref={trackRef}
+                min="0"
+                max="100"
+                type="range"
+                className={styles['control_process_bar_drag']}
+                onInput={onSetVideoTime}
+              />
+              {/* // <i className={styles['control_process_bar_drag']} draggable="true" onDrag={onSetVideoTime}></i> */}
+              {/* </div> */}
             </div>
             <p className={styles['control_bar_icon']}>
               <img

@@ -14,6 +14,7 @@ class Error {
   static REQUEST_DATA_ERROR = '401101:您的请求数据有误，请检查后再试';
 
   static VIDEO_INFO_AID_ERROR = '401201: 请输入正确的视频ID';
+  static VIDEO_CID_REQUIRED_ERROR = '401202: 请输入正确的视频ID';
 }
 
 module.exports = Error;

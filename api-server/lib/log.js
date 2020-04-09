@@ -35,7 +35,7 @@ log.configure({
       pattern: 'yyyy-MM-DD.err.log',
       layout: {
         type: 'pattern',
-        pattern: '[%d][%p] %f %l %s',
+        pattern: '[%d][%p] %f %l %s %n%m%n',
       },
     },
   },

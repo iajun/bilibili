@@ -65,7 +65,7 @@ const BlNav: SFC<BlNavProps> = (props) => {
     setCurHref(href);
 
     if (isDrawerShow) {
-      hideDrawer();
+      // hideDrawer();
       scrollNavTabBar(href);
     }
   }
@@ -93,14 +93,12 @@ const BlNav: SFC<BlNavProps> = (props) => {
         <Icon name="icon-xialaxiao" cname={styles['icon_arrow-down']} onClick={showDrawer} />
       </div>
 
-      {isDrawerShow && (
-        <div className={drawerClass}>
-          <nav className={styles.tab_bar} onClick={handlePartitionItemClick}>
-            {createPartitionListTemplate()}
-          </nav>
-          <Icon name="icon-shouqida" cname={styles['icon_arrow-up']} onClick={hideDrawer} />
-        </div>
-      )}
+      <div className={drawerClass}>
+        <nav className={styles.tab_bar} onClick={handlePartitionItemClick}>
+          {createPartitionListTemplate()}
+        </nav>
+        <Icon name="icon-shouqida" cname={styles['icon_arrow-up']} onClick={hideDrawer} />
+      </div>
     </>
   );
 };

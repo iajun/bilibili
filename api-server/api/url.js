@@ -10,6 +10,7 @@ class ApiUrl {
   static RANKING_REGION = 'https://api.bilibili.com/x/web-interface/ranking/region';
   static VIDEO_PLAY = 'https://m.bilibili.com/video/av';
   static VIDEO_RELATED = 'https://api.bilibili.com/x/web-interface/archive/related';
+  static VIDEO_COMMENT = 'https://comment.bilibili.com';
 }
 
 module.exports = ApiUrl;

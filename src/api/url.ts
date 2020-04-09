@@ -9,6 +9,7 @@ class URL {
   static VIDEO_RANKING_LIST = '/video';
   static VIDEO_INFO = '/video/info';
   static VIDEO_RELATED = '/video/related';
+  static VIDEO_BARRAGE = '/video/barrage';
 }
 
 export default URL;

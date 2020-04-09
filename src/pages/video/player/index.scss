@@ -1,6 +1,9 @@
 @import '~@scss/element.scss';
 @import '~@scss/color.scss';
 
+$color-track-bg: rgba(256, 256, 256, 0.6);
+$color-slide-bg: #de698c;
+
 .player_wrapper {
   height: 422px;
   position: relative;
@@ -9,6 +12,7 @@
 
 .video_cover {
   height: 422px;
+  pointer-events: auto;
   width: 100%;
 }
 
@@ -54,6 +58,7 @@
   margin-right: 30px;
   position: absolute;
   width: 100%;
+  z-index: 20;
 
   .icon {
     width: 92px;
@@ -102,19 +107,41 @@
 }
 
 .control_process_bar_data {
-  background: $color-primary;
   height: 100%;
   position: relative;
+}
 
-  &::after {
-    background-color: white;
+.control_process_bar_drag {
+  -webkit-appearance: none;
+  background: $color-track-bg;
+  display: block;
+  height: 4px;
+  width: 100%;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #fff;
+    border: none;
     border-radius: 50%;
-    content: '';
-    display: block;
-    height: 28px;
-    position: absolute;
-    right: -14px;
-    top: -12px;
-    width: 28px;
+    height: 20px;
+    margin-top: -8px;
+    outline: none;
+    transform: scale(1.5);
+    width: 20px;
   }
+
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 4px;
+  }
+}
+
+
+.barrage-canvas {
+  height: 422px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }

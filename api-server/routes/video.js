@@ -6,7 +6,8 @@
  */
 const express = require('express');
 const Err = require('../lib/error');
-const { fetchVideoList, fetchVideoInfo, fetchRelatedVideo } = require('../api');
+const { xml2json } = require('xml-js');
+const { fetchVideoList, fetchVideoInfo, fetchRelatedVideo, fetchVideoComments } = require('../api');
 
 const router = express.Router();
 
@@ -38,6 +39,33 @@ router.get('/related', async function (req, res, next) {
   }
   const data = await fetchRelatedVideo(req.query.aid);
   res.send(data);
+});
+
+router.get('/barrage', async function (req, res, next) {
+  if (!req.query.cid) {
+    throw new Error(Err.VIDEO_CID_REQUIRED_ERROR);
+  }
+  let data = await fetchVideoComments(req.query.cid);
+
+  data = JSON.parse(xml2json(data));
+
+  data = data.elements[0].elements;
+  const ret = [];
+  data.forEach(({ attributes = {}, elements: [{ text }] }) => {
+    const _data = { text };
+    if (attributes.p) {
+      const [time, type, , color, sendTime] = attributes.p.split(',');
+      _data.time = +time;
+      _data.type = +type;
+      _data.color = '#' + (+color).toString(16);
+      _data.sendTime = +sendTime * 1000;
+
+      ret.push(_data);
+    }
+  });
+  res.send(ret);
+
+  // data.pipe(res);
 });
 
 module.exports = router;

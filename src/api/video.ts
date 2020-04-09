@@ -46,3 +46,22 @@ export async function getVideoRelatedList(params = {}): Promise<Video[]> {
 
   return data.data.map((videoInfo: any) => Video.createVideoFromVideoInfo({ videoInfo }));
 }
+
+export interface Barrage {
+  type: number;
+  text: string;
+  time: number;
+  sendTime: number;
+  color: string;
+}
+
+export async function getVideoBarrageList(cid: string): Promise<Barrage[]> {
+  const data = await fetch({
+    url: URL.VIDEO_BARRAGE,
+    params: {
+      cid,
+    },
+  });
+
+  return data.data;
+}

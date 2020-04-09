@@ -5,6 +5,7 @@
  * @LastEditTime: 2020-04-03 17:27:35
  */
 const fetch = require('../lib/fetch');
+const nodeFetch = require('node-fetch');
 const URL = require('./url');
 const Err = require('../lib/error');
 const { extractState } = require('../lib/util');
@@ -70,4 +71,10 @@ exports.fetchRelatedVideo = async function (aid) {
     throw new Error(Err.VIDEO_INFO_AID_ERROR);
   }
   return data.data.data;
+};
+
+exports.fetchVideoComments = function (cid) {
+  return nodeFetch(`${URL.VIDEO_COMMENT}/${cid}.xml`)
+    .then((res) => res.text())
+    .then((data) => data);
 };
