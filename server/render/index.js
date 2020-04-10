@@ -47,7 +47,7 @@ function isValidRenderURL(url) {
 }
 
 function getRenderContext(req) {
-  const imageSuffix = req.accepts('image/webp') ? '@480w_300h.webp' : '';
+  const imageSuffix = /Chrome/i.test(req.get('user-agent')) ? '@480w_300h.webp' : '';
   return {
     imageSuffix,
   };

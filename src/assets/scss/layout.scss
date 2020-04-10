@@ -8,7 +8,7 @@
 
 @mixin layout-scroll() {
   overflow: scroll;
-  scroll-behavior: smooth;
+  scroll-behavior: touch;
 }
 
 .layout-header-main {

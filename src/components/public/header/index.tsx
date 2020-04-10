@@ -19,7 +19,7 @@ const Header: SFC<{}> = () => {
       </a>
       <a href="/space">
         <img
-          src={`${URL_PREFIX}/proxy?type=image&url=http://i0.hdslb.com/bfs/face/member/noface.jpg@53w_53h.webp`}
+          src={`${URL_PREFIX}/proxy?type=image&url=http://i0.hdslb.com/bfs/face/member/noface.jpg`}
           className={styles.header_avatar}
         />
       </a>

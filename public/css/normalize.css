@@ -10,6 +10,7 @@
 
  html {
   line-height: 1.15; /* 1 */
+  font-family: arial; 
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
