@@ -184,7 +184,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video, staticContext }) => {
           <img
             src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png`}
             alt="play-video"
-            className={styles['icon_play_video']}
+            className={styles['icon']}
             onClick={onStartPlayVideo}
           />
         </div>
