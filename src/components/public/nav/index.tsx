@@ -11,6 +11,7 @@ type BlNavProps = RouteComponentProps;
 
 const BlNav: SFC<BlNavProps> = (props) => {
   const [isDrawerShow, setIsDrawerShow] = useState(false);
+  const [isDrawerHidden, setIsDrawerHidden] = useState(true);
   const [curHref, setCurHref] = useState(props.location.pathname);
   const tabBarRef = useRef<HTMLDivElement>(null);
 
@@ -44,14 +45,17 @@ const BlNav: SFC<BlNavProps> = (props) => {
     [styles['drawer']]: true,
     [styles['drawer-visible']]: isDrawerShow,
     [styles['drawer-invisible']]: !isDrawerShow,
+    [styles['drawer-hidden']]: isDrawerHidden
   });
 
   function showDrawer() {
-    setIsDrawerShow(true);
+    setIsDrawerHidden(false);
+    setTimeout(() => setIsDrawerShow(true), 0);
   }
 
   function hideDrawer() {
     setIsDrawerShow(false);
+    setTimeout(() => setIsDrawerHidden(true), 500);
   }
 
   // use event target to reduce event binding

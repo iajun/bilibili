@@ -56,6 +56,7 @@
   background: #fff;
   position: absolute;
   top: 88px;
+  transition: transform 500ms ease;
   width: 100%;
   z-index: 2;
 
@@ -72,13 +73,16 @@
 }
 
 .drawer-visible {
-  animation: slideInDown 0.3s ease;
-  visibility: visible;
+  display: block;
+  transform: translate3d(0, 0, 0);
 }
 
 .drawer-invisible {
-  animation: slideOutUp 0.3s ease;
-  visibility: hidden;
+  transform: translate3d(0, -100%, 0);
+}
+
+.drawer-hidden {
+  display: none;
 }
 
 .icon_arrow-down {
