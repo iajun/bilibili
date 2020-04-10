@@ -1,4 +1,4 @@
 module.exports = {
-  URL_PREFIX: '"//localhost:3021"',
+  URL_PREFIX: '"/api"',
   NODE_ENV: '"production"',
 };
