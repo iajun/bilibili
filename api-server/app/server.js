@@ -1,8 +1,8 @@
 /*
  * @Date: 2020-04-01 20:40:51
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 12:55:01
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-10 12:36:23
  */
 const express = require('express');
 const fetch = require('../lib/fetch');
@@ -78,14 +78,20 @@ class ApiServer {
   }
 
   async handleProxyImage(url, req, res) {
+    // webp support
+    let suffix = 'jpg';
+    if (req.accepts('image/webp')) {
+      suffix = 'webp';
+    }
+    const imageArr = url.split('.');
+
     const data = await fetch({
       responseType: 'stream',
       url,
     });
-    const imageArr = url.split('.');
     const ext = imageArr[imageArr.length - 1];
 
-    res.set('Content-Type', `image/${ext}`);
+    res.set('Content-Type', `image/${suffix}`);
 
     return data.data;
   }

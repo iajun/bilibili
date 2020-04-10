@@ -46,6 +46,13 @@ function isValidRenderURL(url) {
   return !~url.indexOf('.');
 }
 
+function getRenderContext(req) {
+  const imageSuffix = req.accepts('image/webp') ? '@480w_300h.webp' : '';
+  return {
+    imageSuffix,
+  };
+}
+
 /**
  * render middileware
  *
@@ -77,7 +84,9 @@ const render = (options) => async (req, res) => {
 
   const extractor = getExtractor(clientManifest, ['app']);
 
-  let app = extractor.collectChunks(createApp(req.url, { req }, store));
+  const context = getRenderContext(req);
+
+  let app = extractor.collectChunks(createApp(req.url, context, store));
 
   // rendertostring must be before extracting tags, or cause error
   app = ReactDom.renderToString(app);

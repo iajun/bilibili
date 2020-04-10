@@ -5,7 +5,7 @@ import React from 'react';
 import Root from './App';
 import createStore from '@store/index';
 
-const createApp = (location: string, context: object = {}, store: any) => {
+const createApp = (location: string, context = {}, store: any) => {
   const App = () => (
     <Provider store={store}>
       <Router context={context} location={location}>

@@ -1,16 +1,19 @@
+import { RouterProps } from '@typings/global';
 import { formatSeconds } from '@util/numFormat';
+import { getImageSuffix } from '@util/getImageSuffix';
 import { initialStore } from '@store/reducers';
+import { withRouter } from 'react-router';
 import React, { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import fetch from '@util/fetch';
 import styles from './index.scss?modules';
 
-export interface VideoPlayerProps {
+export interface VideoPlayerProps extends RouterProps {
   video: typeof initialStore.currentVideo;
 }
 
 const URL_PREFIX = process.env.URL_PREFIX;
 
-const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
+const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video, staticContext }) => {
   const [hasPlayedVideo, setHasPlayedVideo] = useState(false);
   const [isVideoPaused, setIsVideoPaused] = useState(false);
   const [isShowControlLayer, setIsShowCtrlLayer] = useState(false);
@@ -23,6 +26,13 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
 
   const barPercentTmp = (playedVideoTime / durationRef.current) * 100;
   const processbarPercent = isNaN(+barPercentTmp) ? 0 : (barPercentTmp | 0) + '%';
+
+  let suffix = '';
+  if (staticContext) {
+    suffix = staticContext.imageSuffix;
+  } else {
+    suffix = getImageSuffix();
+  }
 
   useEffect(() => {
     fetch({
@@ -164,7 +174,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
       <div style={{ display: hasPlayedVideo ? 'none' : 'block' }}>
         <div>
           <img
-            src={`${URL_PREFIX}/proxy?type=image&url=${video.pic}`}
+            src={`${URL_PREFIX}/proxy?type=image&url=${video.pic}${suffix}`}
             alt="video-cover"
             className={styles['video_cover']}
           />
@@ -184,4 +194,4 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video }) => {
   );
 };
 
-export default VideoPlayer;
+export default withRouter(VideoPlayer);
