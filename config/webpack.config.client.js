@@ -13,13 +13,9 @@ const clientConfig = merge(baseWebpackConfig, {
     app: ['./src/entry-client.tsx'],
   },
   output: {
-    filename: isProd
-      ? 'static/js/[name].[chunkhash].js'
-      : 'static/js/[name].[hash].js',
+    filename: isProd ? 'static/js/[name].[chunkhash].js' : 'static/js/[name].[hash].js',
   },
-  devtool: isProd
-    ? '#cheap-module-source-map'
-    : '#cheap-module-eval-source-map',
+  devtool: isProd ? 'none' : '#cheap-module-eval-source-map',
   module: {
     rules: [
       ...generateScriptLoaders({

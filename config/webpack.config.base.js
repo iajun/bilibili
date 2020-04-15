@@ -2,7 +2,7 @@
  * @Date: 2020-03-30 00:42:49
  * @Author: Sharp
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-09 20:26:24
+ * @LastEditTime: 2020-04-15 19:54:21
  */
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -64,6 +64,7 @@ const baseConfig = {
   },
   plugins: [
     new CheckerPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new HardSourceWebpackPlugin({
       info: {
         mode: 'none',
