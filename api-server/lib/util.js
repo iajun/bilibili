@@ -1,15 +1,15 @@
 /*
  * @Date: 2020-04-01 22:23:05
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 12:42:12
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-21 15:58:09
  */
 
 const vm = require('vm');
 const Err = require('./error');
 
 exports.extractState = function extractState(html) {
-  const REGEX = /(window\.__INITIAL_STATE__.*?)<\/script>/gs;
+  const REGEX = /(window\.__INITIAL_STATE__.*?)\(function.*?<\/script>/gs;
   const matches = REGEX.exec(html);
 
   const context = vm.createContext({

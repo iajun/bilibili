@@ -180,7 +180,7 @@ const VideoPlayer: React.SFC<VideoPlayerProps> = ({ video, staticContext }) => {
           />
         </div>
         <div className={styles['load_wrapper']}>
-          <p className={styles['video_duration']}>{video.duration}</p>
+          <p className={styles['video_duration']}>{formatSeconds(video.duration)}</p>
           <img
             src={`${URL_PREFIX}/proxy?type=image&url=https://s1.hdslb.com/bfs/static/mult/images/TV-Play.png`}
             alt="play-video"

@@ -1,8 +1,8 @@
 /*
  * @Date: 2020-04-01 22:24:15
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 20:21:32
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-21 16:24:12
  */
 const express = require('express');
 const Err = require('../lib/error');
@@ -22,10 +22,12 @@ router.get('/info', async function (req, res) {
   }
 
   let data = await fetchVideoInfo(req.query.aid);
-  data && data.reduxAsyncConnect ? (data = data.reduxAsyncConnect) : {};
 
-  const videoTags = data.videoTag || [];
-  const videoInfo = data.videoInfo || {};
+  const videoTags = data.tag || [];
+  let videoInfo = {};
+  if (data.video.viewInfo && data.video.playUrlInfo) {
+    videoInfo = { ...data.video.viewInfo, initUrl: data.video.playUrlInfo[0].url.replace(/https?:/, '') };
+  }
 
   res.send({
     videoTags,

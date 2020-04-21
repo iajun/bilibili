@@ -2,8 +2,8 @@
 /*
  * @Date: 2020-04-02 00:48:26
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 22:43:27
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-21 16:04:44
  */
 import URL from './url';
 import Video from '@model/video';
@@ -27,10 +27,13 @@ export async function getVideoInfo(params = {}): Promise<Video> {
     params,
   });
 
-  const tags = (data.data.videoTags as any[]).map(({ tag_id, tag_name }) => ({
-    id: tag_id,
-    name: tag_name,
-  }));
+  let tags: any[] = [];
+  if (data.data.videoTags && Array.isArray(data.data.videoTags)) {
+    tags = (data.data.videoTags as any[]).map(({ tag_id, tag_name }) => ({
+      id: tag_id,
+      name: tag_name,
+    }));
+  }
 
   return Video.createVideoFromVideoInfo({
     videoInfo: data.data.videoInfo,

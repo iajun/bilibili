@@ -1,8 +1,8 @@
 /*
  * @Date: 2020-04-02 00:37:14
  * @Author: Sharp
- * @LastEditors: Sharp
- * @LastEditTime: 2020-04-03 22:57:53
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-21 16:01:35
  */
 import { AnyAction, Dispatch } from 'redux';
 import { getVideoInfo, getVideoRelatedList } from '@api/index';
